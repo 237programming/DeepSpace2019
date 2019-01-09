@@ -32,9 +32,12 @@ public class RobotMap {
 		public static double deadband = 0.3;
 		
 	//ball manipulator stuff
-		public static int ballMoter = 0;
+		public static int ballMotor = 0;
 		public static int elevatorMotor1 = 1;
 		public static int elevatorMotor2 = 2;
+		
+	//disk manipulator stuff
+		public static int diskSolenoid = 0;
 		
 
 }

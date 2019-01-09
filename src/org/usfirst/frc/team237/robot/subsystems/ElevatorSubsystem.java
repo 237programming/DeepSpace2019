@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ElevatorSubsystem extends Subsystem {
+public class ElevatorSubsystem extends Subsystem 
+{
 
 	private WPI_TalonSRX leftElevator = new WPI_TalonSRX(RobotMap.elevatorMotor1);
 	private WPI_TalonSRX rightElevator = new WPI_TalonSRX(RobotMap.elevatorMotor2);
@@ -23,22 +24,23 @@ public class ElevatorSubsystem extends Subsystem {
 		rightElevator.set(ControlMode.Follower, RobotMap.elevatorMotor1);
 	}
 	
-	public void erectUp()
+	public void elevatorUp()
 	{
 		leftElevator.set(1);
 	}
 	
-	public void erectDown()
+	public void elevatorDown()
 	{
 		leftElevator.set(-1);
 	}
 	
-	public void erectOff()
+	public void elevatorOff()
 	{
 		leftElevator.set(0);
 	}
 	
-    public void initDefaultCommand() {
+    public void initDefaultCommand() 
+    {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }

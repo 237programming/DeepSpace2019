@@ -12,28 +12,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class BallManipulatorSubsystem extends Subsystem 
 {
-	private WPI_TalonSRX ballMoter= new WPI_TalonSRX(RobotMap.ballMoter);
+	private WPI_TalonSRX ballMotor= new WPI_TalonSRX(RobotMap.ballMotor);
 	
  // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	public BallManipulatorSubsystem()
 	{
-		ballMoter.set(ControlMode.PercentOutput, 0);
+		ballMotor.set(ControlMode.PercentOutput, 0);
 	}
 	
 	public void ballSpit()
 	{
-		ballMoter.set(1.0);
+		ballMotor.set(1.0);
 	}
 	
 	public void ballSuck()
 	{
-		ballMoter.set(-1.0);
+		ballMotor.set(-1.0);
 	}
 	
 	public void noBalls()
 	{
-		ballMoter.set(0.0);
+		ballMotor.set(0.0);
 	}
 
     public void initDefaultCommand() 
