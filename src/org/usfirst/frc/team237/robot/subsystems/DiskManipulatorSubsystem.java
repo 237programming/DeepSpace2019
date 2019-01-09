@@ -34,7 +34,8 @@ public class DiskManipulatorSubsystem extends Subsystem
 		diskSolenoid.set(DoubleSolenoid.Value.kOff);
 	}
 
-    public void initDefaultCommand() {
+    public void initDefaultCommand() 
+    {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
