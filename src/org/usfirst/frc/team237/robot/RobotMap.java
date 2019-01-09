@@ -33,6 +33,8 @@ public class RobotMap {
 		
 	//ball manipulator stuff
 		public static int ballMoter = 0;
+		public static int elevatorMotor1 = 1;
+		public static int elevatorMotor2 = 2;
 		
 
 }
