@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class DiskManipulatorSubsystem extends Subsystem {
+public class DiskManipulatorSubsystem extends Subsystem 
+{
+	
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
