@@ -7,11 +7,33 @@
 
 package org.usfirst.frc.team237.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class OI 
+{
+//Xbox Controller Mapping: Joystick L- 1-y-axis, 0-x-axis; Joystick R- 5-y-axis, 4-x-axis; A button-1, B button-2, X button-3, Y button-4
+//Bumper L-5, Bumper R-6, Trigger L-2, Trigger R-3, Back-7, Start-8, Joystick L Button-9, Joystick R Button-10
+	
+	public static Joystick driveJoystick = new Joystick(1);
+	public static Joystick controller = new Joystick(0);
+	public static Joystick panel = new Joystick(2);
+	
+	public static Button ballIntake = new JoystickButton(controller, 2);
+	public static Button ballOuttake = new JoystickButton(controller, 3);
+	public static Button diskManipulatorDown = new JoystickButton(controller, 5);
+	public static Button diskManipulatorUp = new JoystickButton(controller, 6);
+	public static Button elevator = new JoystickButton(controller, 1);
+	
+	public OI()
+	{
+		
+	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
