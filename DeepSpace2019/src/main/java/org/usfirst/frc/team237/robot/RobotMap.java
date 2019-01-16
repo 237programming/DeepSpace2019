@@ -26,10 +26,10 @@ public class RobotMap
 	// public static int rangefinderModule = 1;
 	
 	//drive stuff
-		public static int driveTalon1 = 1;
-		public static int driveTalon2 = 2;
-		public static int driveTalon3 = 3;
-		public static int driveTalon4 = 4;
+		public static int driveTalonFL = 3;
+		public static int driveTalonBL = 2;
+		public static int driveTalonFR = 5;
+		public static int driveTalonBR = 6;
 		public static double deadband = 0.3;
 		
 	//ball manipulator stuff

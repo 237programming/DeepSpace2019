@@ -19,10 +19,10 @@ import edu.wpi.first.wpilibj.SPI;
  */
 public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.PIDOutput
 {	
-	private WPI_TalonSRX leftDrive = new WPI_TalonSRX(RobotMap.driveTalon1);
-	private WPI_TalonSRX leftDriveSlave = new WPI_TalonSRX(RobotMap.driveTalon2);
-	private WPI_TalonSRX rightDrive = new WPI_TalonSRX(RobotMap.driveTalon3);
-	private WPI_TalonSRX rightDriveSlave = new WPI_TalonSRX(RobotMap.driveTalon4);
+	private WPI_TalonSRX leftDrive = new WPI_TalonSRX(RobotMap.driveTalonFL);
+	private WPI_TalonSRX leftDriveSlave = new WPI_TalonSRX(RobotMap.driveTalonBL);
+	private WPI_TalonSRX rightDrive = new WPI_TalonSRX(RobotMap.driveTalonFR);
+	private WPI_TalonSRX rightDriveSlave = new WPI_TalonSRX(RobotMap.driveTalonBR);
 //	private AHRS gyro = new AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, (byte) 200);
 	private AHRS gyro = new AHRS(SPI.Port.kMXP);
 	private PIDController angularPID = new PIDController(0.1, 0.0, 0.1, gyro, this);
@@ -31,9 +31,9 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	public DriveSubsystem()
 	{
 		leftDrive.set(ControlMode.PercentOutput, 0);
-		leftDriveSlave.set(ControlMode.Follower, 1);
+		leftDriveSlave.set(ControlMode.Follower, RobotMap.driveTalonFL);
 		rightDrive.set(ControlMode.PercentOutput, 0);
-		rightDriveSlave.set(ControlMode.Follower, 3);
+		rightDriveSlave.set(ControlMode.Follower, RobotMap.driveTalonFR);
 		angularPID.disable();
 		angularPID.setInputRange(-180, 180);
 		angularPID.setOutputRange(-0.8, 0.8);
@@ -48,8 +48,8 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	
 	public void setDrives(double x, double y)
 	{
-			x = Math.abs(x) > 0.1 ? x : 0;
-			y = Math.abs(y) > 0.1 ? y : 0;
+			x = Math.abs(x) > 0.15 ? x : 0;
+			y = Math.abs(y) > 0.15 ? y : 0;
 			
 			if(x != 0)
 			{

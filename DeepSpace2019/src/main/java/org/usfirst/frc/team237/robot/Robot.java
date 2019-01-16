@@ -61,6 +61,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		driveTrain.post();
 	}
 
 	/**
@@ -117,7 +118,8 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() 
 	{
 		// Scheduler.getInstance().run();
-		driveTrain.setDrives(OI.driveJoystick.getY(),OI.driveJoystick.getX());
+		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+		driveTrain.post();
 	}
 
 	/**
