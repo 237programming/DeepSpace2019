@@ -53,4 +53,17 @@ public class RobotMap
 		public static int yaxisJoystick = 1;
 	//Xbox Controller Mapping: Joystick L- 1-y-axis, 0-x-axis; Joystick R- 5-y-axis, 4-x-axis; A button-1, B button-2, X button-3, Y button-4
 	//Bumper L-5, Bumper R-6, Trigger L-2, Trigger R-3, Back-7, Start-8, Joystick L Button-9, Joystick R Button-10
+
+	//Rocket Angles right
+		public static int frontRightRocket = 45;
+		public static int middleRightRocket = 90;
+		public static int backRightRocket = 135;
+
+	//Rocket Anlges Left
+		public static int frontLeftRocket = -45;
+		public static int middleLeftRocket = -90;
+		public static int backLeftRocket = -135;
+
+	 
+
 }
