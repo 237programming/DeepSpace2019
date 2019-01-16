@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team237.robot;
 
+import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,6 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
+	public static DriveSubsystem driveTrain = new DriveSubsystem();
+
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -34,11 +38,14 @@ public class Robot extends TimedRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
+	public void robotInit() 
+	{
 		m_oi = new OI();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		driveTrain.zeroYaw();
+		driveTrain.zeroEnc();
 	}
 
 	/**
@@ -107,8 +114,10 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+	public void teleopPeriodic() 
+	{
+		// Scheduler.getInstance().run();
+		driveTrain.setDrives(OI.driveJoystick.getY(),OI.driveJoystick.getX());
 	}
 
 	/**
