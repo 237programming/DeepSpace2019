@@ -9,8 +9,10 @@ package org.usfirst.frc.team237.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AutoRightSide extends Command {
-  public AutoRightSide() {
+public class AutoRightSide extends Command 
+{
+  public AutoRightSide() 
+  {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
