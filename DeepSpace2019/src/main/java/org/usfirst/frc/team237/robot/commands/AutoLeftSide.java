@@ -295,7 +295,7 @@ public class AutoLeftSide extends Command
         Robot.driveTrain.disableRotateTo();
         Robot.driveTrain.zeroEnc();
         Robot.driveTrain.setDrives(0, 0);
-        currentState = state.finished;
+        currentState = State.finished;
       }
       break; 
 
