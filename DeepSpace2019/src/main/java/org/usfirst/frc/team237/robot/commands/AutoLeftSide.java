@@ -19,7 +19,7 @@ public class AutoLeftSide extends Command
 
   private double time;
   private State currentState;
-  
+   
 
   private enum State 
   {
@@ -231,12 +231,76 @@ public class AutoLeftSide extends Command
         Robot.driveTrain.setDrives(0, 0);
         Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
         Robot.driveTrain.rotateTo(180);
+        time = Timer.getFPGATimestamp();
         currentState = State.turnToBaseAngle;
       }
+      break;
 
+      case turnToBaseAngle: 
+      Robot.driveTrain.pidDrive(1);
+      if(Timer.getFPGATimestamp() > time + 1.0 )
+      {
+        Robot.driveTrain.disableRotateTo();
+        Robot.driveTrain.zeroEnc();
+        Robot.driveTrain.setDrives(0, 0);
+        Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveD, RobotMap.driveD);
+        Robot.driveTrain.rotateTo(180);
+        currentState = State.moveToDisk;
+      }
+      break;
 
+      case moveToDisk:
+      Robot.driveTrain.pidDrive(1);
+      if(Robot.driveTrain.getEncPos() > 1000 )
+      {
+        Robot.driveTrain.disableRotateTo();
+        Robot.driveTrain.zeroEnc();
+        Robot.driveTrain.setDrives(0, 0);
+        time = Timer.getFPGATimestamp();
+        currentState = State.intakeDisk;
+      }
+      break; 
+
+      case intakeDisk: 
+      //****Set inakes
+      if(Timer.getFPGATimestamp() > time + 1.0)
+      {
+        Robot.driveTrain.disableRotateTo();
+        Robot.driveTrain.zeroEnc();
+        Robot.driveTrain.setDrives(0, 0);
+        Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
+        Robot.driveTrain.rotateTo(180);
+        currentState = State.backAwayFromDisk;
+      }
+      break;
+
+      case backAwayFromDisk:
+      Robot.driveTrain.pidDrive(-1);
+      if(Robot.driveTrain.getEncPos() > 1000 )
+      {
+        Robot.driveTrain.disableRotateTo();
+        Robot.driveTrain.zeroEnc();
+        Robot.driveTrain.setDrives(0, 0);
+        Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
+        Robot.driveTrain.rotateTo(0);
+        time = Timer.getFPGATimestamp();
+        currentState = State.turnAround;
+      }
+      break;
+
+      case turnAround: 
+      Robot.driveTrain.pidDrive(1);
+      if(Timer.getFPGATimestamp() > time + 1.0 )
+      {
+        Robot.driveTrain.disableRotateTo();
+        Robot.driveTrain.zeroEnc();
+        Robot.driveTrain.setDrives(0, 0);
+        currentState = state.finished;
+      }
+      break; 
 
       default:
+      break;
     }
 
 
