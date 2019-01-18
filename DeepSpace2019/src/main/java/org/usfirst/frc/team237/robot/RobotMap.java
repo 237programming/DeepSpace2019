@@ -63,6 +63,13 @@ public class RobotMap
 		public static int frontLeftRocket = -45;
 		public static int middleLeftRocket = -90;
 		public static int backLeftRocket = -135;
+	//PID stuff
+		public static double turnP = 0.0;
+		public static double turnI = 0.0;
+		public static double turnD = 0.0;
+		public static double driveP = 0.0;
+		public static double driveI = 0.0;
+		public static double driveD = 0.0;
 
 	 
 
