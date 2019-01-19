@@ -135,7 +135,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
-              Robot.driveTrain.setPIDValues(Robot.driveP, RobotMap.driveI, RobotMap.driveD);
+              Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
               Robot.driveTrain.rotateTo(135);
               currentState = State.moveAtRocketAngle;
             }
