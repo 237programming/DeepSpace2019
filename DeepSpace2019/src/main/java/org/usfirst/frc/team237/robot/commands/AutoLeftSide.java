@@ -322,7 +322,7 @@ public class AutoLeftSide extends Command
     Robot.driveTrain.disableRotateTo();
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
-    ///***** */Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
+    ///*****Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
 
   }
 
@@ -334,6 +334,6 @@ public class AutoLeftSide extends Command
     Robot.driveTrain.disableRotateTo();
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
-    ///***** */Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
+    ///*****Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
   }
 }
