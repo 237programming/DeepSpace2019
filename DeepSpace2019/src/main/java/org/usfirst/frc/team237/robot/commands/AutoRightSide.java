@@ -105,7 +105,7 @@ public class AutoRightSide extends Command
             {
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
-              Robot.driveTrain.setDrive(0, 0);
+              Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
               Robot.driveTrain.rotateTo(10);
               currentState = State.moveAtAngle;
@@ -119,7 +119,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
-              Robot.driveTrain.setPIDValues(RobotMap.turnP), RobotMap.turnI, RobotMap.turnD);
+              Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
               Robot.driveTrain.rotateTo(135);
               currentState = State.turnToRocketAngle;
             }
