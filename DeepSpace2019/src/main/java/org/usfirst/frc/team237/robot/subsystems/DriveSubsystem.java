@@ -51,6 +51,11 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	{
 			x = Math.abs(x) > 0.15 ? x : 0;
 			y = Math.abs(y) > 0.15 ? y : 0;
+
+			if(reverseDriveFlag)
+			{
+				y = -y;
+			}
 			
 			if(x != 0)
 			{
