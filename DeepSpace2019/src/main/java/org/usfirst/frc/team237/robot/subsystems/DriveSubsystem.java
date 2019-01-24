@@ -27,6 +27,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	private AHRS gyro = new AHRS(SPI.Port.kMXP);
 	private PIDController angularPID = new PIDController(0.1, 0.0, 0.1, gyro, this);
 	private double PIDOutput = 0;
+	private boolean reverseDriveFlag = false;
     
 	public DriveSubsystem()
 	{
@@ -172,6 +173,18 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
     {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    }
+	}
+
+	public void reverseDriveSetter(boolean flag)
+	{
+		reverseDriveFlag = flag;
+	}
+
+	public boolean reverseDrive()
+	{
+		return reverseDriveFlag;
+	}
+
+	
 }
 
