@@ -30,7 +30,7 @@ public class RobotMap
 		public static int driveTalonBL = 2;
 		public static int driveTalonFR = 5;
 		public static int driveTalonBR = 6;
-		public static double deadband = 0.3;
+		public static double deadband = 0.15;
 		
 	//ball manipulator stuff
 		public static int ballMotor = 0;
