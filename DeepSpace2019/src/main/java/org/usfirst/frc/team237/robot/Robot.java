@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team237.robot;
 
+import org.usfirst.frc.team237.robot.subsystems.DiskManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 	public static DriveSubsystem driveTrain = new DriveSubsystem();
+	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
 
 
 	Command m_autonomousCommand;
