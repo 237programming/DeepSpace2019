@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team237.robot;
 
+import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DiskManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
@@ -33,7 +34,7 @@ public class Robot extends TimedRobot {
 	public static DriveSubsystem driveTrain = new DriveSubsystem();
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
 	public static ElevatorSubsystem elevator = new ElevatorSubsystem();
-
+	public static BallManipulatorSubsystem ballMotor = new BallManipulatorSubsystem();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
