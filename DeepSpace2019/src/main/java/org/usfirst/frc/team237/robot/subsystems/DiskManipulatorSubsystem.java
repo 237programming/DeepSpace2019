@@ -6,13 +6,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Compressor;
 
-
-/**
- *
- */
 public class DiskManipulatorSubsystem extends Subsystem 
 {
-	//private static DoubleSolenoid diskSolenoid = new DoubleSolenoid(RobotMap.diskSolenoid, 0);
 	private Compressor compressor = new Compressor(51);
 	private Solenoid diskExtentionSolenoid = new Solenoid(RobotMap.diskExtentionSol);
 	private Solenoid diskEjectSolenoid = new Solenoid(RobotMap.diskEjectSol);
@@ -23,7 +18,6 @@ public class DiskManipulatorSubsystem extends Subsystem
     // here. Call these from Commands.
 	public DiskManipulatorSubsystem()
 	{
-		//diskSolenoid.set(DoubleSolenoid.Value.kOff);
 		diskExtentionSolenoid.set(false);
 		diskEjectSolenoid.set(false);
 		ballSolenoid.set(false);

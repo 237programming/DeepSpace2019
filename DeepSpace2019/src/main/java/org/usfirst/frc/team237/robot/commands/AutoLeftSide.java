@@ -47,7 +47,7 @@ public class AutoLeftSide extends Command
   public AutoLeftSide() 
   {
     requires(Robot.driveTrain);
-    //**********eventually */requires (Robot.diskManipulator);
+    requires(Robot.diskHandler);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -155,10 +155,10 @@ public class AutoLeftSide extends Command
         break;
 
       case outtakeDisk:
-        //***set outtakes
+        Robot.diskHandler.diskEject();
         if(Timer.getFPGATimestamp() > time + 1.0 )
         {
-          //***set to intake 
+          Robot.diskHandler.diskUnject();
           Robot.driveTrain.disableRotateTo();
           Robot.driveTrain.zeroEnc();
           Robot.driveTrain.setDrives(0, 0);
@@ -262,7 +262,7 @@ public class AutoLeftSide extends Command
         break; 
 
       case intakeDisk: 
-        //****Set inakes
+        Robot.diskHandler.diskExtend();
         if(Timer.getFPGATimestamp() > time + 1.0)
         {
           Robot.driveTrain.disableRotateTo();
@@ -270,6 +270,7 @@ public class AutoLeftSide extends Command
           Robot.driveTrain.setDrives(0, 0);
           Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
           Robot.driveTrain.rotateTo(180);
+          Robot.diskHandler.diskRetract();
           currentState = State.backAwayFromDisk;
         }
         break;
@@ -322,8 +323,6 @@ public class AutoLeftSide extends Command
     Robot.driveTrain.disableRotateTo();
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
-    ///*****Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
-
   }
 
   // Called when another command which requires one or more of the same
@@ -334,6 +333,7 @@ public class AutoLeftSide extends Command
     Robot.driveTrain.disableRotateTo();
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
-    ///*****Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
+    Robot.diskHandler.diskUnject();
+    Robot.diskHandler.diskRetract();
   }
 }
