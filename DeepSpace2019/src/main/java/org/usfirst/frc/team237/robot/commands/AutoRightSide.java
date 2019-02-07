@@ -45,7 +45,7 @@ public class AutoRightSide extends Command
   public AutoRightSide() 
   {
       requires(Robot.driveTrain);
-    //requires(Robot.diskManipulator);
+      requires(Robot.diskHandler);
 
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -148,21 +148,20 @@ public class AutoRightSide extends Command
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
-            //outtake disk thingy
               currentState = State.outtakeDisk;
             }
             break;
 
           case outtakeDisk:
-            //outtake disk thingy
+            Robot.diskHandler.diskEject();
             if(Timer.getFPGATimestamp() > time + 1)
-            //outtake disk enc count?
             {
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
               Robot.driveTrain.rotateTo(135);
+              Robot.diskHandler.diskUnject();
               time = Timer.getFPGATimestamp();
               currentState = State.backAwayFromRocket;
             }
@@ -256,20 +255,19 @@ public class AutoRightSide extends Command
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
-              //intake thingy
               time = Timer.getFPGATimestamp();
               currentState = State.intakeDisk;
             }
             break;
 
           case intakeDisk:
-            //intake thingy
+            Robot.diskHandler.diskExtend();
             if(Timer.getFPGATimestamp() > time + 1)
-            //intake thingy
             {
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
+              Robot.diskHandler.diskRetract();
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
               Robot.driveTrain.rotateTo(180);
               currentState = State.backAwayFromDisk;
@@ -323,7 +321,6 @@ public class AutoRightSide extends Command
     Robot.driveTrain.disableRotateTo();
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
-    ///*****Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
   }
 
   // Called when another command which requires one or more of the same
@@ -334,6 +331,7 @@ public class AutoRightSide extends Command
     Robot.driveTrain.disableRotateTo();
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
-    ///*****Robot.diskManipulator.whatever turns off the mechinism to push the disk off();
+    Robot.diskHandler.diskRetract();
+    Robot.diskHandler.diskUnject();
   }
 }
