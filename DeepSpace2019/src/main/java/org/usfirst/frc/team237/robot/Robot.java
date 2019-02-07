@@ -9,6 +9,7 @@ package org.usfirst.frc.team237.robot;
 
 import org.usfirst.frc.team237.robot.subsystems.DiskManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static DriveSubsystem driveTrain = new DriveSubsystem();
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
+	public static ElevatorSubsystem elevator = new ElevatorSubsystem();
 
 
 	Command m_autonomousCommand;
@@ -122,6 +124,30 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() 
 	{
 		// Scheduler.getInstance().run();
+		// elevator control Logic 
+		if (OI.elevatorUp.get())
+		{
+			elevator.elevatorUp();
+		}
+		else if (OI.elevatorDown.get())
+		{
+			elevator.elevatorDown();
+		}
+		else 
+		{
+			elevator.elevatorOff();
+		}
+		//slapper control 
+		if (OI.diskManipulatorUp.get())
+		{
+			diskHandler.diskUp();
+		}
+		else if (OI.diskManipulatorDown.get())
+		{
+			diskHandler.diskDown();
+		}
+
+		
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 	}

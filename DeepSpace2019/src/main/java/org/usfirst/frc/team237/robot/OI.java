@@ -28,7 +28,8 @@ public class OI
 	public static Button ballOuttake = new JoystickButton(controller, 3);
 	public static Button diskManipulatorDown = new JoystickButton(controller, 5);
 	public static Button diskManipulatorUp = new JoystickButton(controller, 6);
-	public static Button elevator = new JoystickButton(controller, 1);
+	public static Button elevatorUp = new JoystickButton(driveJoystick, 6);
+	public static Button elevatorDown = new JoystickButton(driveJoystick, 7);
 	
 	public OI()
 	{
