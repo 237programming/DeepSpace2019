@@ -150,6 +150,7 @@ public class Robot extends TimedRobot {
 		
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
+		elevator.post();
 	}
 
 	/**
