@@ -51,7 +51,7 @@ public class PickUpDiskRoutine extends Command
 
       case slapDown:
       Robot.diskHandler.diskDown();
-      if(Timer.getFPGATimestamp() + time > 1)
+      if(Timer.getFPGATimestamp() > time + 1)
       {
         time = Timer.getFPGATimestamp();
         currentState = State.extend;
@@ -60,7 +60,7 @@ public class PickUpDiskRoutine extends Command
 
       case extend:
       Robot.diskHandler.diskExtend();
-      if(Timer.getFPGATimestamp() + time > 1)
+      if(Timer.getFPGATimestamp() > time + 1)
       {
         time = Timer.getFPGATimestamp();
         currentState = State.retract;
@@ -69,7 +69,7 @@ public class PickUpDiskRoutine extends Command
 
       case retract:
       Robot.diskHandler.diskRetract();
-      if(Timer.getFPGATimestamp() + time > 1)
+      if(Timer.getFPGATimestamp() > time + 1)
       {
         time = Timer.getFPGATimestamp();
         currentState = State.slapUp;
@@ -78,7 +78,7 @@ public class PickUpDiskRoutine extends Command
 
       case slapUp: 
       Robot.diskHandler.diskUp();
-      if(Timer.getFPGATimestamp() + time > 1)
+      if(Timer.getFPGATimestamp() > time + 1)
       {
         time = Timer.getFPGATimestamp();
         currentState = State.finished;
