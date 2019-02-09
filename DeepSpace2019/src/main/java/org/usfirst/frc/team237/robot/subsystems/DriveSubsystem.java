@@ -13,12 +13,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Notifier;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.PathfinderFRC;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.followers.EncoderFollower;
 
 /**
  *
  */
 public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.PIDOutput
 {	
+	private static final int k_ticks_per_rev = 1024;
+  	private static final double k_wheel_diameter = 4.0 / 12.0;
+  	private static final double k_max_velocity = 10;
+
 	private WPI_TalonSRX leftDrive = new WPI_TalonSRX(RobotMap.driveTalonFL);
 	private WPI_TalonSRX leftDriveSlave = new WPI_TalonSRX(RobotMap.driveTalonBL);
 	private WPI_TalonSRX rightDrive = new WPI_TalonSRX(RobotMap.driveTalonFR);
@@ -28,7 +37,11 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	private PIDController angularPID = new PIDController(0.1, 0.0, 0.1, gyro, this);
 	private double PIDOutput = 0;
 	private boolean reverseDriveFlag = false;
-    
+	private EncoderFollower m_left_follower;
+	private EncoderFollower m_right_follower;
+	private Notifier m_Notifier; 
+    private Trajectory leftTrajectory = PathfinderFRC.getTrajectory("Start.left.pf1");
+	private Trajectory rightTrajectory = PathfinderFRC.getTrajectory("Start.right.pf1");
 	public DriveSubsystem()
 	{
 		leftDrive.set(ControlMode.PercentOutput, 0);
@@ -45,8 +58,46 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		gyro.reset();
 		
 		leftDrive.setSensorPhase(true);
+		m_left_follower = new EncoderFollower(leftTrajectory);
+    	m_right_follower = new EncoderFollower(rightTrajectory);
+		m_left_follower.configureEncoder(leftDrive.getSelectedSensorPosition(), k_ticks_per_rev, k_wheel_diameter);
+    	// You must tune the PID values on the following line!
+    	m_left_follower.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
+
+    	m_right_follower.configureEncoder(rightDrive.getSelectedSensorPosition(), k_ticks_per_rev, k_wheel_diameter);
+    	// You must tune the PID values on the following line!
+    	m_right_follower.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
+		
+    	
 	}
-	
+	public void enablePathFollower()
+	{
+		m_Notifier = new Notifier(this::followPath);
+		m_Notifier.startPeriodic(leftTrajectory.get(0).dt);
+	}
+	public void followPath()
+	{
+		
+		if (m_left_follower.isFinished() || m_right_follower.isFinished()) {
+			m_Notifier.stop();
+		} else {
+			double left_speed = m_left_follower.calculate(leftDrive.getSelectedSensorPosition());
+			double right_speed = m_right_follower.calculate(rightDrive.getSelectedSensorPosition());
+			double heading = gyro.getAngle();
+			double desired_heading = Pathfinder.r2d(m_left_follower.getHeading());
+			double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
+			double turn = 0.8 * (-1.0 / 80.0) * heading_difference;
+			leftDrive.set(left_speed + turn);
+			rightDrive.set(right_speed - turn);
+		}
+		
+	}
+	public void stopMP()
+	{
+		m_Notifier.stop();
+		leftDrive.set(0);
+		rightDrive.set(0); 
+	}
 	public void setDrives(double x, double y)
 	{
 			x = Math.abs(x) > RobotMap.deadband ? x : 0;
