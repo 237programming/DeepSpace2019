@@ -83,7 +83,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
               Robot.driveTrain.rotateTo(0);
               time = Timer.getFPGATimestamp();
-              currentState = State.reorient;
+              currentState = State.finished;
             }
             break;
 
