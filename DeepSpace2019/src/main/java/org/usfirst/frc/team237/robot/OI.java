@@ -37,7 +37,7 @@ public class OI
 	public static Button elevatorUp = new JoystickButton(driveJoystick, 6);
 	public static Button elevatorDown = new JoystickButton(driveJoystick, 7);
 
-	public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
+	//public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
 	//retract not being used and manipultor up not being used
 	public static Button retract = new JoystickButton(controller, RobotMap.rightBumper);
 	public static Button diskManipulatorUp = new JoystickButton(controller, RobotMap.Y);
