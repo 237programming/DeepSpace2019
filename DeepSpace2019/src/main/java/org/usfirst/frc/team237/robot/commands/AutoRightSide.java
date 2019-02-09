@@ -74,7 +74,7 @@ public class AutoRightSide extends Command
             break;
 
           case driveOffPlatform:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Robot.driveTrain.getEncPos()>1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -83,7 +83,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
               Robot.driveTrain.rotateTo(0);
               time = Timer.getFPGATimestamp();
-              currentState = State.reorient;
+              currentState = State.finished;
             }
             break;
 
@@ -102,7 +102,7 @@ public class AutoRightSide extends Command
             break;
           
           case turnToAngle:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Timer.getFPGATimestamp() > time + 1)
             {
               Robot.driveTrain.disableRotateTo();
@@ -115,7 +115,7 @@ public class AutoRightSide extends Command
             break;
           
           case moveAtAngle:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -129,7 +129,7 @@ public class AutoRightSide extends Command
             break;
 
           case turnToRocketAngle:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Timer.getFPGATimestamp() > time + 1)
             {
               Robot.driveTrain.disableRotateTo();
@@ -142,7 +142,7 @@ public class AutoRightSide extends Command
             break;
           
           case moveAtRocketAngle:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -168,7 +168,7 @@ public class AutoRightSide extends Command
             break;
 
           case backAwayFromRocket:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(-.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -182,7 +182,7 @@ public class AutoRightSide extends Command
             break;
 
           case turnToBase:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Timer.getFPGATimestamp() > time + 1)
             {
               Robot.driveTrain.disableRotateTo();
@@ -195,7 +195,7 @@ public class AutoRightSide extends Command
             break;
 
           case moveToBase:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -209,7 +209,7 @@ public class AutoRightSide extends Command
             break;
 
           case turnToDiskAngle:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Timer.getFPGATimestamp() > time + 1)
             {
               Robot.driveTrain.disableRotateTo();
@@ -222,7 +222,7 @@ public class AutoRightSide extends Command
             break;
 
           case moveToDiskAngle:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -236,7 +236,7 @@ public class AutoRightSide extends Command
             break;
 
           case turnToDisk:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Timer.getFPGATimestamp() > time + 1)
             {
               Robot.driveTrain.disableRotateTo();
@@ -249,7 +249,7 @@ public class AutoRightSide extends Command
             break;
 
           case moveToDisk:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -275,7 +275,7 @@ public class AutoRightSide extends Command
             break;
 
           case backAwayFromDisk:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(-.2);
             if(Robot.driveTrain.getEncPos() > 1000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -288,7 +288,7 @@ public class AutoRightSide extends Command
             break;
 
           case turnAround:
-            Robot.driveTrain.pidDrive(1);
+            Robot.driveTrain.pidDrive(.2);
             if(Timer.getFPGATimestamp() > time + 1)
             {
               Robot.driveTrain.disableRotateTo();
