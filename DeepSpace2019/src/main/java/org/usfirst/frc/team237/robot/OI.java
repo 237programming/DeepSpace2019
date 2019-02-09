@@ -44,7 +44,7 @@ public class OI
 	
 	public OI()
 	{
-		pickUpDisk.whenPressed(new PickUpDiskRoutine());
+		//pickUpDisk.whenPressed(new PickUpDiskRoutine());
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
+import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;;
 
 
 
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
 	public static ElevatorSubsystem elevator = new ElevatorSubsystem();
 	public static BallManipulatorSubsystem ballMotor = new BallManipulatorSubsystem();
-
+	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -125,8 +126,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() 
 	{
-	//Ejecting disk
-		if(OI.eject.get())
+		if (OI.pickUpDisk.get() && !m_pickUpDisk.isRunning())
+		{
+			m_pickUpDisk.start();
+		}
+		if (!m_pickUpDisk.isRunning())
+		{
+			if(OI.eject.get())
 		{
 			diskHandler.diskEject();
 		}
@@ -135,7 +141,7 @@ public class Robot extends TimedRobot {
 			diskHandler.diskUnject();
 		}
 	//Extending and Retracting toggle
-		if(OI.extend.get())
+		if(OI.extend.get() )
 		{
 			diskHandler.diskExtend();
 		}
@@ -152,6 +158,9 @@ public class Robot extends TimedRobot {
 		{
 			diskHandler.diskUp();
 		}
+		}
+	//Ejecting disk
+		
 		// Scheduler.getInstance().run();
 		// elevator control Logic 
 		if (OI.elevatorUp.get())
@@ -170,6 +179,7 @@ public class Robot extends TimedRobot {
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();
+		Scheduler.getInstance().run();
 	}
 
 	/**
