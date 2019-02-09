@@ -23,11 +23,19 @@ public class OI
 	public static Joystick driveJoystick = new Joystick(1);
 	public static Joystick controller = new Joystick(0);
 	public static Joystick panel = new Joystick(2);
+	//disk manipultaor toggle y
+	//eject button a
+	//disk extend and retract toggle left bump and right
 	
 	public static Button ballIntake = new JoystickButton(controller, 2);
 	public static Button ballOuttake = new JoystickButton(controller, 3);
-	public static Button diskManipulatorDown = new JoystickButton(controller, 5);
-	public static Button diskManipulatorUp = new JoystickButton(controller, 6);
+
+	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
+	public static Button retract = new JoystickButton(controller, RobotMap.rightBumper);
+	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.Y);
+	public static Button eject = new JoystickButton(controller, RobotMap.A);
+	
+	public static Button diskManipulatorUp = new JoystickButton(controller, RobotMap.Y);
 	public static Button elevatorUp = new JoystickButton(driveJoystick, 6);
 	public static Button elevatorDown = new JoystickButton(driveJoystick, 7);
 	

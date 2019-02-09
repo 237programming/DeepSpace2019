@@ -108,7 +108,8 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {
+	public void teleopInit() 
+	{
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -124,6 +125,30 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() 
 	{
+		if(OI.eject.get())
+		{
+			diskHandler.diskEject();
+		}
+		else 
+		{
+			diskHandler.diskUnject();
+		}
+		if(OI.extend.get())
+		{
+			diskHandler.diskExtend();
+		}
+		else if(OI.retract.get())
+		{
+			diskHandler.diskRetract();
+		}
+		if(OI.diskManipulatorDown.get())
+		{
+			diskHandler.diskDown();
+		}
+		else
+		{
+			diskHandler.diskUp();
+		}
 		// Scheduler.getInstance().run();
 		// elevator control Logic 
 		if (OI.elevatorUp.get())
