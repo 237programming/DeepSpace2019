@@ -10,6 +10,7 @@ package org.usfirst.frc.team237.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,23 +26,25 @@ public class OI
 	public static Joystick panel = new Joystick(2);
 	//disk manipultaor toggle y
 	//eject button a
-	//disk extend and retract toggle left bump and right
+	//disk extend and retract toggle left bump
 	
 	public static Button ballIntake = new JoystickButton(controller, 2);
 	public static Button ballOuttake = new JoystickButton(controller, 3);
 
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
-	public static Button retract = new JoystickButton(controller, RobotMap.rightBumper);
 	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.Y);
 	public static Button eject = new JoystickButton(driveJoystick, 1);
-	
-	public static Button diskManipulatorUp = new JoystickButton(controller, RobotMap.Y);
 	public static Button elevatorUp = new JoystickButton(driveJoystick, 6);
 	public static Button elevatorDown = new JoystickButton(driveJoystick, 7);
+
+	public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
+	//retract not being used and manipultor up not being used
+	public static Button retract = new JoystickButton(controller, RobotMap.rightBumper);
+	public static Button diskManipulatorUp = new JoystickButton(controller, RobotMap.Y);
 	
 	public OI()
 	{
-		
+		pickUpDisk.whenPressed(new PickUpDiskRoutine());
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a

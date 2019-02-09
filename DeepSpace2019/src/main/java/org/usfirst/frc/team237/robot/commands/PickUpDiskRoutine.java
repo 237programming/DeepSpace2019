@@ -8,6 +8,8 @@
 package org.usfirst.frc.team237.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team237.robot.Robot;
 
 public class PickUpDiskRoutine extends Command 
 {
@@ -16,7 +18,7 @@ public class PickUpDiskRoutine extends Command
   private enum State
   {
     start,
-    slapdown,
+    slapDown,
     extend,
     retract,
     slapUp,
@@ -33,7 +35,7 @@ public class PickUpDiskRoutine extends Command
   @Override
   protected void initialize() 
   {
-    time = Timer.getFGPATimeStamp;
+    time = Timer.getFPGATimestamp();
     currentState = State.start;
   }
 
@@ -44,41 +46,41 @@ public class PickUpDiskRoutine extends Command
     switch(currentState)
     {
       case start:
-        currentState = State.slapdown;
+        currentState = State.slapDown;
         break;
 
       case slapDown:
       Robot.diskHandler.diskDown();
-      if(Timer.getFGPATimeStamp + time > 1)
+      if(Timer.getFPGATimestamp() + time > 1)
       {
-        time = Timer.getFGPATimeStamp;
+        time = Timer.getFPGATimestamp();
         currentState = State.extend;
       }
       break;
 
       case extend:
-      Robot.diskHandler.diskEntend();
-      if(Timer.getFGPATimeStamp + time > 1)
+      Robot.diskHandler.diskExtend();
+      if(Timer.getFPGATimestamp() + time > 1)
       {
-        time = Timer.getFGPATimeStamp;
+        time = Timer.getFPGATimestamp();
         currentState = State.retract;
       }
       break;
 
       case retract:
       Robot.diskHandler.diskRetract();
-      if(Timer.getFGPATimeStamp + time > 1)
+      if(Timer.getFPGATimestamp() + time > 1)
       {
-        time = Timer.getFGPATimeStamp;
+        time = Timer.getFPGATimestamp();
         currentState = State.slapUp;
       }
       break;
 
       case slapUp: 
       Robot.diskHandler.diskUp();
-      if(Timer.getFGPATimeStamp + time > 1)
+      if(Timer.getFPGATimestamp() + time > 1)
       {
-        time = Timer.getFGPATimeStamp;
+        time = Timer.getFPGATimestamp();
         currentState = State.finished;
       }
       break;

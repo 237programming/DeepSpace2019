@@ -125,6 +125,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() 
 	{
+	//Ejecting disk
 		if(OI.eject.get())
 		{
 			diskHandler.diskEject();
@@ -133,6 +134,7 @@ public class Robot extends TimedRobot {
 		{
 			diskHandler.diskUnject();
 		}
+	//Extending and Retracting toggle
 		if(OI.extend.get())
 		{
 			diskHandler.diskExtend();
@@ -141,6 +143,7 @@ public class Robot extends TimedRobot {
 		{
 			diskHandler.diskRetract();
 		}
+	//Up and Down Manipulator toggle
 		if(OI.diskManipulatorDown.get())
 		{
 			diskHandler.diskDown();
