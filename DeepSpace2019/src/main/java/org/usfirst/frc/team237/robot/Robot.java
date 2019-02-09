@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() 
 	{
 		m_oi = new OI();
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
 		{
 			diskHandler.diskExtend();
 		}
-		else if(OI.retract.get())
+		else
 		{
 			diskHandler.diskRetract();
 		}
@@ -163,17 +163,7 @@ public class Robot extends TimedRobot {
 		{
 			elevator.elevatorOff();
 		}
-		//slapper control 
-		if (OI.diskManipulatorUp.get())
-		{
-			diskHandler.diskUp();
-		}
-		else if (OI.diskManipulatorDown.get())
-		{
-			diskHandler.diskDown();
-		}
-
-		
+				
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();

@@ -40,8 +40,8 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	private EncoderFollower m_left_follower;
 	private EncoderFollower m_right_follower;
 	private Notifier m_Notifier; 
-    private Trajectory leftTrajectory = PathfinderFRC.getTrajectory("Start.left.pf1");
-	private Trajectory rightTrajectory = PathfinderFRC.getTrajectory("Start.right.pf1");
+    private Trajectory leftTrajectory; //= PathfinderFRC.getTrajectory("Start.left.pf1");
+	private Trajectory rightTrajectory; //= PathfinderFRC.getTrajectory("Start.right.pf1");
 	public DriveSubsystem()
 	{
 		leftDrive.set(ControlMode.PercentOutput, 0);

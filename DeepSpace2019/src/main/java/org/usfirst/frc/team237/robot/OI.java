@@ -33,7 +33,7 @@ public class OI
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
 	public static Button retract = new JoystickButton(controller, RobotMap.rightBumper);
 	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.Y);
-	public static Button eject = new JoystickButton(controller, RobotMap.A);
+	public static Button eject = new JoystickButton(driveJoystick, 1);
 	
 	public static Button diskManipulatorUp = new JoystickButton(controller, RobotMap.Y);
 	public static Button elevatorUp = new JoystickButton(driveJoystick, 6);

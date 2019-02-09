@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.Compressor;
 
 public class DiskManipulatorSubsystem extends Subsystem 
 {
-	private Compressor compressor = new Compressor(51);
-	private Solenoid diskExtentionSolenoid = new Solenoid(RobotMap.diskExtentionSol);
-	private Solenoid diskEjectSolenoid = new Solenoid(RobotMap.diskEjectSol);
-	private Solenoid ballSolenoid = new Solenoid(RobotMap.ballSol);
-	private Solenoid slapSolenoid = new Solenoid(RobotMap.slapSol); 
+	private static Compressor compressor = new Compressor(51);
+	private static Solenoid diskExtentionSolenoid = new Solenoid(51,RobotMap.diskExtentionSol);
+	private static Solenoid diskEjectSolenoid = new Solenoid(51,RobotMap.diskEjectSol);
+	//private Solenoid ballSolenoid = new Solenoid(RobotMap.ballSol);
+	private static Solenoid slapSolenoid = new Solenoid(51,RobotMap.slapSol); 
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -20,7 +20,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		diskExtentionSolenoid.set(false);
 		diskEjectSolenoid.set(false);
-		ballSolenoid.set(false);
+		//ballSolenoid.set(false);
 		slapSolenoid.set(false);
 		compressor.enabled();
 	}
@@ -45,20 +45,20 @@ public class DiskManipulatorSubsystem extends Subsystem
 	}
 	public void diskEject()
 	{
-		diskExtentionSolenoid.set(true);
+		diskEjectSolenoid.set(true);
 	}
 	public void diskUnject()
 	{
-		diskExtentionSolenoid.set(false);
+		diskEjectSolenoid.set(false);
 	}
 	public void ballDown()
 	{
-		ballSolenoid.set(true);
+		//ballSolenoid.set(true);
 	}
 
 	public void ballUp()
 	{
-		ballSolenoid.set(false);
+		//ballSolenoid.set(false);
 	}
     public void initDefaultCommand() 
     {
