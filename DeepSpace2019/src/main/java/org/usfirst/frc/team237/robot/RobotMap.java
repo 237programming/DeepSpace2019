@@ -33,8 +33,7 @@ public class RobotMap
 		public static double deadband = 0.15;
 		
 	//ball manipulator stuff
-
-		public static int ballMotor = 0;
+		public static int ballMotor = 7;
 		public static int elevatorMotor1 = 11;
 		public static int elevatorMotor2 = 12;
 		
@@ -43,6 +42,7 @@ public class RobotMap
 		public static int diskEjectSol = 1;
 		public static int slapSol = 2; 
 		public static int ballSol = 3; 
+
 	//Xbox controller stuff
 		public static int A = 1;
 		public static int B = 2;
@@ -62,10 +62,11 @@ public class RobotMap
 		public static int middleRightRocket = 90;
 		public static int backRightRocket = 135;
 
-	//Rocket Anlges Left
+	//Rocket Angles Left
 		public static int frontLeftRocket = -45;
 		public static int middleLeftRocket = -90;
 		public static int backLeftRocket = -135;
+
 	//PID stuff
 		public static double turnP = 0.0;
 		public static double turnI = 0.0;
@@ -73,7 +74,5 @@ public class RobotMap
 		public static double driveP = 0.0;
 		public static double driveI = 0.0;
 		public static double driveD = 0.0;
-
-	 
 
 }

@@ -11,7 +11,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	private static Compressor compressor = new Compressor(51);
 	private static Solenoid diskExtentionSolenoid = new Solenoid(51,RobotMap.diskExtentionSol);
 	private static Solenoid diskEjectSolenoid = new Solenoid(51,RobotMap.diskEjectSol);
-	//private Solenoid ballSolenoid = new Solenoid(RobotMap.ballSol);
+	private static Solenoid ballSolenoid = new Solenoid(RobotMap.ballSol);
 	private static Solenoid slapSolenoid = new Solenoid(51,RobotMap.slapSol); 
 	
     // Put methods for controlling this subsystem
@@ -20,7 +20,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		diskExtentionSolenoid.set(false);
 		diskEjectSolenoid.set(false);
-		//ballSolenoid.set(false);
+		ballSolenoid.set(false);
 		slapSolenoid.set(false);
 		compressor.enabled();
 	}
@@ -29,7 +29,6 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		slapSolenoid.set(true);
 	}
-	
 	public void diskUp()
 	{
 		slapSolenoid.set(false);
@@ -43,6 +42,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		diskExtentionSolenoid.set(false);
 	}
+	
 	public void diskEject()
 	{
 		diskEjectSolenoid.set(true);
@@ -51,15 +51,16 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		diskEjectSolenoid.set(false);
 	}
+
 	public void ballDown()
 	{
-		//ballSolenoid.set(true);
+		ballSolenoid.set(true);
 	}
-
 	public void ballUp()
 	{
-		//ballSolenoid.set(false);
+		ballSolenoid.set(false);
 	}
+	
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
