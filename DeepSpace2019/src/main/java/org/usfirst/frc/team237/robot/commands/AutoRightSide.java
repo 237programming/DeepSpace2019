@@ -74,7 +74,7 @@ public class AutoRightSide extends Command
             break;
 
           case driveOffPlatform:
-            Robot.driveTrain.pidDrive(.4);
+            Robot.driveTrain.pidDrive(.6);
             if(Robot.driveTrain.getEncPos()>8000)
             {
               Robot.driveTrain.disableRotateTo();
@@ -95,7 +95,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
-              Robot.driveTrain.rotateTo(10);
+              Robot.driveTrain.rotateTo(40);
               time = Timer.getFPGATimestamp();
               currentState = State.turnToAngle;
             }
@@ -109,7 +109,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
-              Robot.driveTrain.rotateTo(10);
+              Robot.driveTrain.rotateTo(40);
               currentState = State.moveAtAngle;
             }
             break;
