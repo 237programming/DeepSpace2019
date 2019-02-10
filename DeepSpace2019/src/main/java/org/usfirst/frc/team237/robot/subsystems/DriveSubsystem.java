@@ -78,9 +78,12 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	public void followPath()
 	{
 		
-		if (m_left_follower.isFinished() || m_right_follower.isFinished()) {
+		if (m_left_follower.isFinished() || m_right_follower.isFinished()) 
+		{
 			m_Notifier.stop();
-		} else {
+		} 
+		else 
+		{
 			double left_speed = m_left_follower.calculate(leftDrive.getSelectedSensorPosition());
 			double right_speed = m_right_follower.calculate(rightDrive.getSelectedSensorPosition());
 			double heading = gyro.getAngle();

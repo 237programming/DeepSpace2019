@@ -109,7 +109,7 @@ public class AutoRightSide extends Command
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
-              Robot.driveTrain.rotateTo(40);
+              Robot.driveTrain.rotateTo(10);
               currentState = State.moveAtAngle;
             }
             break;

@@ -27,10 +27,10 @@ public class OI
 	//disk manipultaor toggle y
 	//eject button a
 	//disk extend and retract toggle left bump
+	//intake and outtake trigger 2 3
+	public static Button ballIntake = new JoystickButton(controller, RobotMap.leftTrigger);
+	public static Button ballOuttake = new JoystickButton(controller, RobotMap.rightTriggger);
 	
-	public static Button ballIntake = new JoystickButton(controller, 2);
-	public static Button ballOuttake = new JoystickButton(controller, 3);
-
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
 	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.Y);
 	public static Button eject = new JoystickButton(driveJoystick, 1);
