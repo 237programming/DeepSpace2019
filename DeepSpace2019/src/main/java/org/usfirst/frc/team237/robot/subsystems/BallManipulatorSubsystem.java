@@ -21,17 +21,17 @@ public class BallManipulatorSubsystem extends Subsystem
 		ballMotor.set(ControlMode.PercentOutput, 0);
 	}
 	
-	public void ballSpit()
+	public void ballOuttake()
 	{
 		ballMotor.set(1.0);
 	}
 	
-	public void ballSuck()
+	public void ballIntake()
 	{
 		ballMotor.set(-1.0);
 	}
 	
-	public void noBalls()
+	public void offIntake()
 	{
 		ballMotor.set(0.0);
 	}
