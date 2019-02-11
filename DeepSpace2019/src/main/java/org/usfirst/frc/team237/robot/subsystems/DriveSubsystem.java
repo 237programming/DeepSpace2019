@@ -14,11 +14,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Notifier;
+/*
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
-
+*/
 /**
  *
  */
@@ -37,11 +38,13 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	private PIDController angularPID = new PIDController(0.1, 0.0, 0.1, gyro, this);
 	private double PIDOutput = 0;
 	private boolean reverseDriveFlag = false;
+	/*
 	private EncoderFollower m_left_follower;
 	private EncoderFollower m_right_follower;
 	private Notifier m_Notifier; 
     private Trajectory leftTrajectory; //= PathfinderFRC.getTrajectory("Start.left.pf1");
 	private Trajectory rightTrajectory; //= PathfinderFRC.getTrajectory("Start.right.pf1");
+	*/
 	public DriveSubsystem()
 	{
 		leftDrive.set(ControlMode.PercentOutput, 0);
@@ -58,6 +61,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		gyro.reset();
 		
 		leftDrive.setSensorPhase(true);
+		/*
 		m_left_follower = new EncoderFollower(leftTrajectory);
     	m_right_follower = new EncoderFollower(rightTrajectory);
 		m_left_follower.configureEncoder(leftDrive.getSelectedSensorPosition(), k_ticks_per_rev, k_wheel_diameter);
@@ -67,17 +71,19 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
     	m_right_follower.configureEncoder(rightDrive.getSelectedSensorPosition(), k_ticks_per_rev, k_wheel_diameter);
     	// You must tune the PID values on the following line!
     	m_right_follower.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
-		
+		*/
     	
 	}
 	public void enablePathFollower()
 	{
+		/*
 		m_Notifier = new Notifier(this::followPath);
 		m_Notifier.startPeriodic(leftTrajectory.get(0).dt);
+		*/
 	}
 	public void followPath()
 	{
-		
+		/*
 		if (m_left_follower.isFinished() || m_right_follower.isFinished()) {
 			m_Notifier.stop();
 		} else {
@@ -90,13 +96,15 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 			leftDrive.set(left_speed + turn);
 			rightDrive.set(right_speed - turn);
 		}
-		
+		*/
 	}
 	public void stopMP()
 	{
+		/*
 		m_Notifier.stop();
 		leftDrive.set(0);
 		rightDrive.set(0); 
+		*/
 	}
 	public void setDrives(double x, double y)
 	{
