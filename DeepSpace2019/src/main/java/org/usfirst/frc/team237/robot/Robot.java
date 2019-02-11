@@ -56,6 +56,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 		driveTrain.zeroYaw();
 		driveTrain.zeroEnc();
+		elevator.zeroEnc();
+		
 	}
 
 	/**
@@ -155,11 +157,11 @@ public class Robot extends TimedRobot {
 			diskHandler.diskRetract();
 		}
 	//ball intake and outtake triggers
-		if(OI.ballIntake.get() == true )
+		if(OI.ballIntake.getY() > .8 )
 		{
 			ballHandler.ballIntake();
 		}
-		else if(OI.ballOuttake.get() == true && OI.ballIntake.get() == false )
+		else if(OI.ballOuttake.getY() > .8  && OI.ballIntake.getY() == 0)
 		{
 			ballHandler.ballOuttake();
 		}

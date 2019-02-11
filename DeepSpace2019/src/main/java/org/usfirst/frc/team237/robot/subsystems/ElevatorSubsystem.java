@@ -27,12 +27,12 @@ public class ElevatorSubsystem extends Subsystem
 	
 	public void elevatorUp()
 	{
-		leftElevator.set(0.50);
+		leftElevator.set(-.5);
 	}
 	
 	public void elevatorDown()
 	{
-		leftElevator.set(-0.10);
+		leftElevator.set(.1);
 	}
 	
 	public void elevatorOff()
@@ -44,6 +44,11 @@ public class ElevatorSubsystem extends Subsystem
 	{
 		SmartDashboard.putNumber("Left Elevator", leftElevator.getSelectedSensorPosition(0));
 		//SmartDashboard.putNumber("Right Elevator", rightElevator.getSelectedSensorPosition(0));
+	}
+
+	public void zeroEnc()
+	{
+		leftElevator.setSelectedSensorPosition(0, 0, 0);
 	}
 	
     public void initDefaultCommand() 
