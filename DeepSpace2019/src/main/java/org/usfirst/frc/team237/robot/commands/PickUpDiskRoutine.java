@@ -49,8 +49,8 @@ public class PickUpDiskRoutine extends Command
         currentState = State.slapDown;
         break;
 
-      case slapDown:
 
+      case slapDown:
       Robot.diskHandler.diskDown();
       if(Timer.getFPGATimestamp() > time + 1)
       {

@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
 	public static DriveSubsystem driveTrain = new DriveSubsystem();
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
 	public static ElevatorSubsystem elevator = new ElevatorSubsystem();
-	public static BallManipulatorSubsystem ballMotor = new BallManipulatorSubsystem();
+	public static BallManipulatorSubsystem ballHandler = new BallManipulatorSubsystem();
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -56,6 +56,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 		driveTrain.zeroYaw();
 		driveTrain.zeroEnc();
+		elevator.zeroEnc();
+		
 	}
 
 	/**
@@ -154,7 +156,20 @@ public class Robot extends TimedRobot {
 		{
 			diskHandler.diskRetract();
 		}
-	//Up and Down Manipulator toggle
+	//ball intake and outtake triggers
+		if(OI.ballIntake.getY() > .8 )
+		{
+			ballHandler.ballIntake();
+		}
+		else if(OI.ballOuttake.getY() > .8  && OI.ballIntake.getY() == 0)
+		{
+			ballHandler.ballOuttake();
+		}
+		else
+		{
+			ballHandler.offIntake();
+		}
+	//Up and Down Manipulator toggle 
 		if(OI.diskManipulatorDown.get())
 		{
 			diskHandler.diskDown();
@@ -180,6 +195,7 @@ public class Robot extends TimedRobot {
 		{
 			elevator.elevatorOff();
 		}
+
 				
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
