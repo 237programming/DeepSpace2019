@@ -33,7 +33,7 @@ public class RobotMap
 		public static double deadband = 0.15;
 		
 	//ball manipulator stuff
-		public static int ballMotor = 7;
+		public static int ballMotor = 4;
 		public static int elevatorMotor1 = 11;
 		public static int elevatorMotor2 = 12;
 		
@@ -41,7 +41,7 @@ public class RobotMap
 		public static int diskExtentionSol = 0;
 		public static int diskEjectSol = 1;
 		public static int slapSol = 2; 
-		public static int ballSol = 3; 
+		public static int ballSol = 4; 
 
 	//Xbox controller stuff
 		public static int A = 1;

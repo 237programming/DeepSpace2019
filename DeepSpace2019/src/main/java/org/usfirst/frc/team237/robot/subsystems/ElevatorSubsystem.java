@@ -21,6 +21,7 @@ public class ElevatorSubsystem extends Subsystem
     // here. Call these from Commands.
 	public ElevatorSubsystem()
 	{
+		leftElevator.configClearPositionOnLimitF(true, 0);
 		leftElevator.set(ControlMode.PercentOutput, 0);
 		rightElevator.set(ControlMode.Follower, RobotMap.elevatorMotor1);
 	}
