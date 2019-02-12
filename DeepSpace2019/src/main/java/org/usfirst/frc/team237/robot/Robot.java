@@ -163,11 +163,13 @@ public class Robot extends TimedRobot {
 			diskHandler.diskRetract();
 		}
 	//ball intake and outtake triggers
-		if(OI.ballIntake.getY() > .8 )
+		double ltVal = OI.ballIntake.getRawAxis(2);
+		double rtVal = OI.ballOuttake.getRawAxis(3);
+		if(ltVal > .8 )
 		{
 			ballHandler.ballIntake();
 		}
-		else if(OI.ballOuttake.getY() > .8  && OI.ballIntake.getY() == 0)
+		else if(rtVal > .8  && ltVal < 0.8)
 		{
 			ballHandler.ballOuttake();
 		}
@@ -185,6 +187,7 @@ public class Robot extends TimedRobot {
 			diskHandler.ballUp();
 		}
 	//elevator on xbox stick
+	/*
 		if(OI.elevator.getY() > .8 )
 		{
 			elevator.elevatorUp();
@@ -197,7 +200,7 @@ public class Robot extends TimedRobot {
 		{
 			elevator.elevatorOff();
 		}
-		
+		*/
 	//Up and Down Manipulator toggle 
 		if(OI.diskManipulatorDown.get())
 		{

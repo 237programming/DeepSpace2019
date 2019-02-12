@@ -11,8 +11,8 @@ public class DiskManipulatorSubsystem extends Subsystem
 	private static Compressor compressor = new Compressor(51);
 	private static Solenoid diskExtentionSolenoid = new Solenoid(51,RobotMap.diskExtentionSol);
 	private static Solenoid diskEjectSolenoid = new Solenoid(51,RobotMap.diskEjectSol);
-	private static Solenoid ballSolenoid = new Solenoid(RobotMap.ballSol);
-	private static Solenoid slapSolenoid = new Solenoid(51,RobotMap.slapSol); 
+	private static Solenoid ballSolenoid = new Solenoid(51, RobotMap.ballSol);
+	private static Solenoid slapSolenoid = new Solenoid(51, RobotMap.slapSol); 
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
