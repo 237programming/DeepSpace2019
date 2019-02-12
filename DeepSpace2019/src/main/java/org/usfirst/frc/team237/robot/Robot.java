@@ -20,7 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
-import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;;
+import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
+import org.usfirst.frc.team237.robot.commands.SwitchDrive;
 
 
 
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
 	public static ElevatorSubsystem elevator = new ElevatorSubsystem();
 	public static BallManipulatorSubsystem ballHandler = new BallManipulatorSubsystem();
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
+	public static SwitchDrive m_reverseDrive = new SwitchDrive();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -133,19 +135,23 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() 
 	{
+	//Pick Up Disk command button
 		if (OI.pickUpDisk.get() && !m_pickUpDisk.isRunning())
 		{
 			m_pickUpDisk.start();
 		}
-		if (!m_pickUpDisk.isRunning())
-		{
-			if(OI.eject.get())
+		if (!m_pickUpDisk.isRunning() && OI.eject.get())
 		{
 			diskHandler.diskEject();
 		}
 		else 
 		{
 			diskHandler.diskUnject();
+		}
+	//Switch drives command
+		if(OI.switchDrives.get() && !m_reverseDrive.isRunning())
+		{
+			m_reverseDrive.start();
 		}
 	//Extending and Retracting toggle
 		if(OI.extend.get() )
@@ -178,7 +184,6 @@ public class Robot extends TimedRobot {
 		{
 			diskHandler.diskUp();
 		}
-		}
 	//Ejecting disk
 		
 		// Scheduler.getInstance().run();
@@ -195,8 +200,7 @@ public class Robot extends TimedRobot {
 		{
 			elevator.elevatorOff();
 		}
-
-				
+	
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();
@@ -207,6 +211,8 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during test mode.
 	 */
 	@Override
-	public void testPeriodic() {
+	public void testPeriodic() 
+	{
+
 	}
 }
