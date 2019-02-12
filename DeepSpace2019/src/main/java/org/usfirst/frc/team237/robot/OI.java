@@ -10,7 +10,7 @@ package org.usfirst.frc.team237.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;;
+import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,19 +24,17 @@ public class OI
 	public static Joystick driveJoystick = new Joystick(1);
 	public static Joystick controller = new Joystick(0);
 	public static Joystick panel = new Joystick(2);
-	//disk manipultaor toggle y
-	//eject button a
-	//disk extend and retract toggle left bump
-	//intake and outtake trigger 2 3
+	
 	public static Joystick ballIntake = new Joystick(RobotMap.leftTrigger);
 	public static Joystick ballOuttake = new Joystick(RobotMap.rightTriggger);
-	
+	//public static Joystick elevator = new Joystick(RobotMap.yAxisJoystick);
+
+	public static Button switchDrives = new JoystickButton(driveJoystick, 10);
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
 	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.rightBumper);
 	public static Button eject = new JoystickButton(driveJoystick, 1);
 	public static Button elevatorUp = new JoystickButton(driveJoystick, 6);
 	public static Button elevatorDown = new JoystickButton(driveJoystick, 7);
-
 	public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
 	
 	//retract not being used and manipultor up not being used
