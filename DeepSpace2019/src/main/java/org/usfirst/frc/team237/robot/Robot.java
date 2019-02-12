@@ -175,6 +175,20 @@ public class Robot extends TimedRobot {
 		{
 			ballHandler.offIntake();
 		}
+/*	//elevator on xbox stick
+		if(OI.elevator.getY() > .8 )
+		{
+			elevator.elevatorUp();
+		}
+		else if(OI.elevator.getY() < -.8 )
+		{
+			elevator.elevatorDown();
+		}
+		else
+		{
+			elevator.elevatorOff();
+		}
+		*/
 	//Up and Down Manipulator toggle 
 		if(OI.diskManipulatorDown.get())
 		{
