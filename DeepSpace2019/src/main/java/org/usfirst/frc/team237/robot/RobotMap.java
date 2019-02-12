@@ -52,8 +52,8 @@ public class RobotMap
 		public static int rightBumper = 6;
 		public static int leftTrigger = 2;
 		public static int rightTriggger = 3;
-		public static int xaxisJoystick = 0;
-		public static int yaxisJoystick = 1;
+		public static int xAxisJoystick = 0;
+		public static int yAxisJoystick = 1;
 	//Xbox Controller Mapping: Joystick L- 1-y-axis, 0-x-axis; Joystick R- 5-y-axis, 4-x-axis; A button-1, B button-2, X button-3, Y button-4
 	//Bumper L-5, Bumper R-6, Trigger L-2, Trigger R-3, Back-7, Start-8, Joystick L Button-9, Joystick R Button-10
 
