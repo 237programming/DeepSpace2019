@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
+import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
 import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
 import org.usfirst.frc.team237.robot.commands.SwitchDrive;
 
@@ -32,8 +33,8 @@ import org.usfirst.frc.team237.robot.commands.SwitchDrive;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
-	
+public class Robot extends TimedRobot 
+{
 	public static OI m_oi;
 	public static DriveSubsystem driveTrain = new DriveSubsystem();
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
 	public static BallManipulatorSubsystem ballHandler = new BallManipulatorSubsystem();
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	public static SwitchDrive m_reverseDrive = new SwitchDrive();
+	public static OuttakeSecondLevel m_outtakeSecLevelCommand = new OuttakeSecondLevel(); 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -140,6 +142,7 @@ public class Robot extends TimedRobot {
 		{
 			m_pickUpDisk.start();
 		}
+	//Eject button
 		if (!m_pickUpDisk.isRunning() && OI.eject.get())
 		{
 			diskHandler.diskEject();
@@ -147,6 +150,11 @@ public class Robot extends TimedRobot {
 		else 
 		{
 			diskHandler.diskUnject();
+		}
+	//Automantic Outtake Second Level command Button
+		if(OI.OuttakeSecLevel.get() && !m_outtakeSecLevelCommand.isRunning())
+		{
+			m_outtakeSecLevelCommand.start();
 		}
 	//Switch drives command
 		if(OI.switchDrives.get() && !m_reverseDrive.isRunning())

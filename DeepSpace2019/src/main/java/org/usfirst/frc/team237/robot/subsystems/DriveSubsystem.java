@@ -234,6 +234,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		SmartDashboard.putNumber("Right Drive", rightDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Left Drive", leftDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Gyro Yaw", getYaw());
+		SmartDashboard.putBoolean("Reverse Drive", reverseDrive());
 	}
 
     public void initDefaultCommand() 
