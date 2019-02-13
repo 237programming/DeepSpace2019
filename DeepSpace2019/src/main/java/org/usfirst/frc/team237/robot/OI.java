@@ -26,8 +26,8 @@ public class OI
 	public static Joystick panel = new Joystick(2);
 	
 	public static Joystick ballIntake = new Joystick(0);
-	//intake left trigger
-	//outtake right trigger
+	//ball intake left trigger
+	//ball outtake right trigger
 	public static Joystick ballOuttake = new Joystick(0);
 	//public static Joystick elevator = new Joystick(RobotMap.yAxisJoystick);
 
