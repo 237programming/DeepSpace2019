@@ -31,6 +31,9 @@ public class RobotMap
 		public static int driveTalonFR = 5;
 		public static int driveTalonBR = 6;
 		public static double deadband = 0.15;
+	
+	//elevator stuff
+		public static int elevatorMaxHeight = -850000;
 		
 	//ball manipulator stuff
 		public static int ballMotor = 4;

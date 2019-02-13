@@ -33,8 +33,8 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	private WPI_TalonSRX leftDriveSlave = new WPI_TalonSRX(RobotMap.driveTalonBL);
 	private WPI_TalonSRX rightDrive = new WPI_TalonSRX(RobotMap.driveTalonFR);
 	private WPI_TalonSRX rightDriveSlave = new WPI_TalonSRX(RobotMap.driveTalonBR);
-	private AHRS gyro = new AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, (byte) 200);
-//	private AHRS gyro = new AHRS(SPI.Port.kMXP);
+//	private AHRS gyro = new AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, (byte) 200);
+	private AHRS gyro = new AHRS(SPI.Port.kMXP);
 	private PIDController angularPID = new PIDController(0.1, 0.0, 0.1, gyro, this);
 	private double PIDOutput = 0;
 	private boolean reverseDriveFlag = false;
@@ -116,7 +116,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 
 			if(reverseDriveFlag)
 			{
-				y = -y;
+				x = -x;
 			}
 			
 			if(x != 0)
@@ -234,6 +234,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		SmartDashboard.putNumber("Right Drive", rightDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Left Drive", leftDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Gyro Yaw", getYaw());
+		SmartDashboard.putBoolean("Reverse Drive", reverseDrive());
 	}
 
     public void initDefaultCommand() 

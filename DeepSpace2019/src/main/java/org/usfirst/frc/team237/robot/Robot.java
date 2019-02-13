@@ -10,7 +10,7 @@ package org.usfirst.frc.team237.robot;
 import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DiskManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem; 
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
+import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
 import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
 import org.usfirst.frc.team237.robot.commands.SwitchDrive;
 
@@ -32,8 +33,8 @@ import org.usfirst.frc.team237.robot.commands.SwitchDrive;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
-	
+public class Robot extends TimedRobot 
+{
 	public static OI m_oi;
 	public static DriveSubsystem driveTrain = new DriveSubsystem();
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
 	public static BallManipulatorSubsystem ballHandler = new BallManipulatorSubsystem();
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	public static SwitchDrive m_reverseDrive = new SwitchDrive();
+	public static OuttakeSecondLevel m_outtakeSecLevelCommand = new OuttakeSecondLevel(); 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -140,6 +142,7 @@ public class Robot extends TimedRobot {
 		{
 			m_pickUpDisk.start();
 		}
+	//Eject button
 		if (!m_pickUpDisk.isRunning() && OI.eject.get())
 		{
 			diskHandler.diskEject();
@@ -147,6 +150,11 @@ public class Robot extends TimedRobot {
 		else 
 		{
 			diskHandler.diskUnject();
+		}
+	//Automantic Outtake Second Level command Button
+		if(OI.OuttakeSecLevel.get() && !m_outtakeSecLevelCommand.isRunning())
+		{
+			m_outtakeSecLevelCommand.start();
 		}
 	//Switch drives command
 		if(OI.switchDrives.get() && !m_reverseDrive.isRunning())
@@ -187,20 +195,24 @@ public class Robot extends TimedRobot {
 			diskHandler.ballUp();
 		}
 	//elevator on xbox stick
-	/*
-		if(OI.elevator.getY() > .8 )
-		{
-			elevator.elevatorUp();
-		}
-		else if(OI.elevator.getY() < -.8 )
+	
+		if(OI.elevator.getRawAxis(1) > .8 )
 		{
 			elevator.elevatorDown();
+		}
+		else if(OI.elevator.getRawAxis(1) < -.8 )
+		{
+			elevator.elevatorUp();
+			if(elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight)
+			{
+				elevator.elevatorOff();
+			}
 		}
 		else
 		{
 			elevator.elevatorOff();
 		}
-		*/
+		
 	//Up and Down Manipulator toggle 
 		if(OI.diskManipulatorDown.get())
 		{
@@ -213,9 +225,8 @@ public class Robot extends TimedRobot {
 	//Ejecting disk
 		
 		// Scheduler.getInstance().run();
-	/*
 		// elevator control Logic 
-		if (OI.elevatorUp.get())
+		/*if (OI.elevatorUp.get())
 		{
 			elevator.elevatorUp();
 		}
@@ -226,9 +237,8 @@ public class Robot extends TimedRobot {
 		else 
 		{
 			elevator.elevatorOff();
-		}
-	*/
-		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+			}
+	*/	driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();
 		Scheduler.getInstance().run();
