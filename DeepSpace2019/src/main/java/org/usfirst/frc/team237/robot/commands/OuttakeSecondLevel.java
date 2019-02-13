@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team237.robot.commands;
 
+import org.usfirst.frc.team237.robot.Robot;
 import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
 
@@ -16,8 +17,8 @@ public class OuttakeSecondLevel extends Command
 {
   public OuttakeSecondLevel() 
   {
-    requires(ElevatorSubsystem);
-    requires(BallManipulatorSubsystem);
+    requires(Robot.elevator);
+    requires(Robot.ballHandler);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
