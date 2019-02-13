@@ -187,12 +187,12 @@ public class Robot extends TimedRobot {
 			diskHandler.ballUp();
 		}
 	//elevator on xbox stick
-	/*
-		if(OI.elevator.getY() > .8 )
+	
+		if(OI.elevator.getRawAxis(1) > .8 )
 		{
 			elevator.elevatorUp();
 		}
-		else if(OI.elevator.getY() < -.8 )
+		else if(OI.elevator.getRawAxis(1) < -.8 )
 		{
 			elevator.elevatorDown();
 		}
@@ -200,7 +200,7 @@ public class Robot extends TimedRobot {
 		{
 			elevator.elevatorOff();
 		}
-		*/
+		
 	//Up and Down Manipulator toggle 
 		if(OI.diskManipulatorDown.get())
 		{
@@ -213,7 +213,6 @@ public class Robot extends TimedRobot {
 	//Ejecting disk
 		
 		// Scheduler.getInstance().run();
-	/*
 		// elevator control Logic 
 		if (OI.elevatorUp.get())
 		{
@@ -227,7 +226,6 @@ public class Robot extends TimedRobot {
 		{
 			elevator.elevatorOff();
 		}
-	*/
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();

@@ -29,7 +29,7 @@ public class OI
 	//intake left trigger
 	//outtake right trigger
 	public static Joystick ballOuttake = new Joystick(0);
-	//public static Joystick elevator = new Joystick(RobotMap.yAxisJoystick);
+	public static Joystick elevator = new Joystick(0);
 
 	public static Button switchDrives = new JoystickButton(driveJoystick, 10);
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);

@@ -28,7 +28,10 @@ public class ElevatorSubsystem extends Subsystem
 	
 	public void elevatorUp()
 	{
+		if(leftElevator.getSelectedSensorPosition(0) > RobotMap.elevatorMaxHeight)
+		{
 		leftElevator.set(-.5);
+		}
 	}
 	
 	public void elevatorDown()
