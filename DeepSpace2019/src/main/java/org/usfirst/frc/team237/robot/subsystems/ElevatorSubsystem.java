@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevatorSubsystem extends Subsystem 
 {
 
-	private WPI_TalonSRX leftElevator = new WPI_TalonSRX(RobotMap.elevatorMotor1);
+	public WPI_TalonSRX leftElevator = new WPI_TalonSRX(RobotMap.elevatorMotor1);
 	private WPI_TalonSRX rightElevator = new WPI_TalonSRX(RobotMap.elevatorMotor2);
 
     // Put methods for controlling this subsystem
@@ -28,10 +28,7 @@ public class ElevatorSubsystem extends Subsystem
 	
 	public void elevatorUp()
 	{
-		if(leftElevator.getSelectedSensorPosition(0) > RobotMap.elevatorMaxHeight)
-		{
 		leftElevator.set(-.5);
-		}
 	}
 	
 	public void elevatorDown()

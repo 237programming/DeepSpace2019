@@ -116,7 +116,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 
 			if(reverseDriveFlag)
 			{
-				y = -y;
+				x = -x;
 			}
 			
 			if(x != 0)

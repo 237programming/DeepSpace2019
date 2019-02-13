@@ -10,7 +10,7 @@ package org.usfirst.frc.team237.robot;
 import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DiskManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem; 
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -190,11 +190,15 @@ public class Robot extends TimedRobot {
 	
 		if(OI.elevator.getRawAxis(1) > .8 )
 		{
-			elevator.elevatorUp();
+			elevator.elevatorDown();
 		}
 		else if(OI.elevator.getRawAxis(1) < -.8 )
 		{
-			elevator.elevatorDown();
+			elevator.elevatorUp();
+			if(elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight)
+			{
+				elevator.elevatorOff();
+			}
 		}
 		else
 		{
@@ -214,7 +218,7 @@ public class Robot extends TimedRobot {
 		
 		// Scheduler.getInstance().run();
 		// elevator control Logic 
-		if (OI.elevatorUp.get())
+		/*if (OI.elevatorUp.get())
 		{
 			elevator.elevatorUp();
 		}
@@ -225,8 +229,8 @@ public class Robot extends TimedRobot {
 		else 
 		{
 			elevator.elevatorOff();
-		}
-		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+			}
+	*/	driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();
 		Scheduler.getInstance().run();
