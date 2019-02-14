@@ -25,14 +25,17 @@ public class OI
 	public static Joystick controller = new Joystick(0);
 	public static Joystick panel = new Joystick(2);
 	
-	public static Joystick ballIntake = new Joystick(0);
+	
 	//ball intake left trigger
 	//ball outtake right trigger
+	public static Joystick ballIntake = new Joystick(0);
 	public static Joystick ballOuttake = new Joystick(0);
 	public static Joystick elevator = new Joystick(0);
 
 	public static Button OuttakeSecLevel = new JoystickButton(driveJoystick, 10);
+	public static Button diskSecLevel = new JoystickButton(driveJoystick, 6);
 	public static Button switchDrives = new JoystickButton(driveJoystick, 7);
+
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
 	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.rightBumper);
 	public static Button eject = new JoystickButton(driveJoystick, 1);

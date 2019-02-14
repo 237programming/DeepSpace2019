@@ -7,19 +7,19 @@
 
 package org.usfirst.frc.team237.robot.commands;
 
-import org.usfirst.frc.team237.robot.Robot;
-import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
-import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team237.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
-public class OuttakeSecondLevel extends Command 
+
+
+public class DiskSecondLevel extends Command 
 {
   private boolean m_done = false; 
   private double time;
   private double dTime; 
-  public OuttakeSecondLevel() 
+
+  public DiskSecondLevel() 
   {
     requires(Robot.elevator);
     requires(Robot.ballHandler);
@@ -29,8 +29,7 @@ public class OuttakeSecondLevel extends Command
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() 
-  {
+  protected void initialize() {
     m_done = false; 
     time = -1;
     dTime = 0; 
@@ -40,14 +39,14 @@ public class OuttakeSecondLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -550000 && time < 0  )
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -450000 && time < 0  )
     {
       Robot.elevator.elevatorUp();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -550000 && time < 0)
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -450000 && time < 0)
     {
       Robot.elevator.elevatorOff();
-      Robot.ballHandler.ballOuttake();
+      Robot.diskHandler.diskEject();
       time = Timer.getFPGATimestamp();
       dTime = time; 
     }
@@ -58,7 +57,7 @@ public class OuttakeSecondLevel extends Command
     //max -600000
     else 
     {
-      Robot.ballHandler.offIntake();
+      Robot.diskHandler.diskUnject();
       //Robot.elevator.elevatorOff();
       //m_done = true; 
       if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
@@ -74,23 +73,22 @@ public class OuttakeSecondLevel extends Command
   @Override
   protected boolean isFinished() 
   {
+
     return m_done;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end() 
-  {
-    Robot.ballHandler.offIntake();
+  protected void end() {
+    Robot.diskHandler.diskUnject();
     Robot.elevator.elevatorOff();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected void interrupted() 
-  {
-    Robot.ballHandler.offIntake();
+  protected void interrupted() {
+    Robot.diskHandler.diskUnject();
     Robot.elevator.elevatorOff();
   }
 }

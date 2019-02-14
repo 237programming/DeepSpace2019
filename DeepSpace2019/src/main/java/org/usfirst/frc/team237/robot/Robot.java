@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
+import org.usfirst.frc.team237.robot.commands.DiskSecondLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
 import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
 import org.usfirst.frc.team237.robot.commands.SwitchDrive;
@@ -43,6 +44,7 @@ public class Robot extends TimedRobot
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	public static SwitchDrive m_reverseDrive = new SwitchDrive();
 	public static OuttakeSecondLevel m_outtakeSecLevelCommand = new OuttakeSecondLevel(); 
+	public static DiskSecondLevel m_diskSecondLevelCommand = new DiskSecondLevel();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -147,7 +149,7 @@ public class Robot extends TimedRobot
 		{
 			diskHandler.diskEject();
 		}
-		else 
+		else if ( !m_diskSecondLevelCommand.isRunning())
 		{
 			diskHandler.diskUnject();
 		}
@@ -155,6 +157,11 @@ public class Robot extends TimedRobot
 		if(OI.OuttakeSecLevel.get() && !m_outtakeSecLevelCommand.isRunning())
 		{
 			m_outtakeSecLevelCommand.start();
+		}
+	//disk Automatic sec level
+		if(OI.diskSecLevel.get() && !m_diskSecondLevelCommand.isRunning())
+		{
+			m_diskSecondLevelCommand.start();
 		}
 	//Switch drives command
 		if(OI.switchDrives.get() && !m_reverseDrive.isRunning())
@@ -181,7 +188,7 @@ public class Robot extends TimedRobot
 		{
 			ballHandler.ballOuttake();
 		}
-		else
+		else if (!m_outtakeSecLevelCommand.isRunning())
 		{
 			ballHandler.offIntake();
 		}
@@ -203,16 +210,15 @@ public class Robot extends TimedRobot
 		else if(OI.elevator.getRawAxis(1) < -.8 )
 		{
 			elevator.elevatorUp();
-			if(elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight)
-			{
-				elevator.elevatorOff();
-			}
+			
 		}
-		else
+		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning()) 
 		{
 			elevator.elevatorOff();
 		}
-		
+		if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) {
+			elevator.elevatorOff();
+		}
 	//Up and Down Manipulator toggle 
 		if(OI.diskManipulatorDown.get())
 		{
