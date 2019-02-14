@@ -88,14 +88,14 @@ public class AutoRightSide extends Command
             break;
 
           case reorient:
-            //Robot.driveTrain.setDrives(0, 0);
+            Robot.driveTrain.setDrives(0, 0);
             if(Timer.getFPGATimestamp() > time + .25)
             {
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
-              Robot.driveTrain.rotateTo(10);
+              Robot.driveTrain.rotateTo(90);
               time = Timer.getFPGATimestamp();
               currentState = State.turnToAngle;
             }
@@ -103,14 +103,14 @@ public class AutoRightSide extends Command
           
           case turnToAngle:
             Robot.driveTrain.pidDrive(0);
-            if(Timer.getFPGATimestamp() > time + 1)
+            if(Timer.getFPGATimestamp() > time + 5)
             {
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, 0);
               Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
-              Robot.driveTrain.rotateTo(10);
-              currentState = State.moveAtAngle;
+              Robot.driveTrain.rotateTo(90);
+              currentState = State.finished;
             }
             break;
           

@@ -53,7 +53,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		rightDriveSlave.set(ControlMode.Follower, RobotMap.driveTalonFR);
 		angularPID.disable();
 		angularPID.setInputRange(-180, 180);
-		angularPID.setOutputRange(-0.8, 0.8);
+		angularPID.setOutputRange(-0.7, 0.7);
 		angularPID.setPercentTolerance(30);
 		angularPID.setContinuous();
 		
@@ -226,7 +226,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	}
 	public void pidDrive(double speed)
 	{
-		setDrives(speed,PIDOutput);
+		setDrives(speed, PIDOutput);
 	}
 	
 	public void post()
@@ -235,6 +235,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		SmartDashboard.putNumber("Left Drive", leftDrive.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Gyro Yaw", getYaw());
 		SmartDashboard.putBoolean("Reverse Drive", reverseDrive());
+		SmartDashboard.putNumber("PID Output", PIDOutput);
 	}
 
     public void initDefaultCommand() 

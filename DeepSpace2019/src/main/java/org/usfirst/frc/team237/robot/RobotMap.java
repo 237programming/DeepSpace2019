@@ -73,7 +73,7 @@ public class RobotMap
 	//PID stuff
 		public static double turnP = 0.1;
 		public static double turnI = 0.0;
-		public static double turnD = 0.1;
+		public static double turnD = 0.0;
 		public static double driveP = 0.05;
 		public static double driveI = 0.001;
 		public static double driveD = 0.0;
