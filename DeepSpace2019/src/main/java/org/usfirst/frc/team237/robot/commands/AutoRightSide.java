@@ -75,7 +75,7 @@ public class AutoRightSide extends Command
 
           case driveOffPlatform:
             Robot.driveTrain.pidDrive(.6);
-            if(Robot.driveTrain.getEncPos()>8000)
+            if(Robot.driveTrain.getEncPos()>2000)
             {
               Robot.driveTrain.disableRotateTo();
               Robot.driveTrain.zeroEnc();
@@ -88,7 +88,7 @@ public class AutoRightSide extends Command
             break;
 
           case reorient:
-           // Robot.driveTrain.setDrives(0, 0);
+            //Robot.driveTrain.setDrives(0, 0);
             if(Timer.getFPGATimestamp() > time + .25)
             {
               Robot.driveTrain.disableRotateTo();
