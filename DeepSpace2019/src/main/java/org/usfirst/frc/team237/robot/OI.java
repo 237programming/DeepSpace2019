@@ -46,6 +46,18 @@ public class OI
 	public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
 	public static Button ballManipulatorDown = new JoystickButton(controller, RobotMap.Y);
 
+    
+    
+    public static Button AutoLow = new JoystickButton(panel, 5);
+    public static Button AutoMedium = new JoystickButton(panel, 2);
+    public static Button AutoHigh = new JoystickButton(panel, 1);
+    public static Button Slap = new JoystickButton(panel, 3);
+    public static Button Intake = new JoystickButton(panel, 7);
+    public static Button Eject = new JoystickButton(panel, 4);
+
+    
+    
+    
 	
 	//retract not being used and manipultor up not being used
 	//public static Button retract = new JoystickButton(controller, RobotMap.rightBumper);

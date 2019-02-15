@@ -51,6 +51,8 @@ public class Robot extends TimedRobot
 	public static DiskThirdLevel m_diskThirdLevel = new DiskThirdLevel();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+    private boolean m_RevButtonState;
+    private boolean m_PrevRevButtonState;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -67,6 +69,7 @@ public class Robot extends TimedRobot
 		driveTrain.zeroYaw();
 		driveTrain.zeroEnc();
 		elevator.zeroEnc();
+        m_PrevRevButtonState = false;
 		
 	}
 
@@ -142,79 +145,93 @@ public class Robot extends TimedRobot
 	 */
 	@Override
 	public void teleopPeriodic() 
-	{
-	//Pick Up Disk command button
-		if (OI.pickUpDisk.get() && !m_pickUpDisk.isRunning())
+    {        
+        //First, check if a command is running. If so, don't check any inputs
+        if (m_diskThirdLevel.isRunning() || m_diskSecondLevelCommand.isRunning() || m_outtakeThirdLevel.isRunning() || m_outtakeSecLevelCommand.isRunning())
+        {
+            driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+            driveTrain.post();
+            elevator.post();
+            Scheduler.getInstance().run();
+            return;
+        }    
+    
+        //Check for drive reversal        
+        m_RevButtonState = OI.switchDrives.get();        
+        if(OI.switchDrives.get() && !m_PrevRevButtonState)
 		{
-			m_pickUpDisk.start();
-		}
-	//Eject button
-		if (!m_pickUpDisk.isRunning() && OI.eject.get())
-		{
-			diskHandler.diskEject();
-		}
-		else if ( !m_diskSecondLevelCommand.isRunning())
-		{
-			diskHandler.diskUnject();
-		}
-	//Automantic Outtake Second Level command Button
-		if(OI.OuttakeSecLevel.get() && !m_outtakeSecLevelCommand.isRunning())
-		{
-			m_outtakeSecLevelCommand.start();
-		}
-	//disk Automatic sec level
-		if(OI.diskSecLevel.get() && !m_diskSecondLevelCommand.isRunning())
-		{
-			m_diskSecondLevelCommand.start();
-		}
-	//Switch drives command
-		if(OI.switchDrives.get() && !m_reverseDrive.isRunning())
-		{
-			m_reverseDrive.start();
-		}
-	//Extending and Retracting toggle
-		if(OI.extend.get() )
-		{
-			diskHandler.diskExtend();
-		}
-		else
-		{
-			diskHandler.diskRetract();
-		}
-	//ball intake and outtake triggers
-		double ltVal = OI.ballIntake.getRawAxis(2);
-		double rtVal = OI.ballOuttake.getRawAxis(3);
-		if(ltVal > .8 )
-		{
-			ballHandler.ballIntake();
-		}
-		else if(rtVal > .8  && ltVal < 0.8)
-		{
-			ballHandler.ballOuttake();
-		}
-		else if (!m_outtakeSecLevelCommand.isRunning())
-		{
-			ballHandler.offIntake();
-		}
-	//ball slap thing
-		if(OI.ballManipulatorDown.get())
-		{
-			diskHandler.ballDown();
-		}
-		else
-		{
-			diskHandler.ballUp();
-		}
-	//elevator on xbox stick
+			driveTrain.reverseDriveSetter(!driveTrain.reverseDrive());            
+		}       
+        m_PrevRevButtonState = m_RevButtonState;
+
+        if (driveTrain.reverseDrive())
+        {
+            //If reverse drive, reset all hatch mechanisms
+            diskHandler.diskRetract();
+            diskHandler.diskUnject();
+            diskHandler.diskUp();
+            
+            //Now let's look at the DS inputs
+            
+            //INTAKE/EJECT/OFF
+            if (OI.Intake.get())
+                ballHandler.ballIntake();
+            else if (OI.Eject.get())
+                ballHandler.ballOuttake();
+            else
+                ballHandler.offIntake();
+            //SLAP    
+            if (OI.Slap.get())
+                diskHandler.ballDown();
+            else
+                diskHandler.ballUp();
+            
+            //Now the automated stuff...
+            if(OI.AutoHigh.get() && !m_outtakeThirdLevel.isRunning())
+                m_outtakeThirdLevel.start();
+            if(OI.AutoMedium.get() && !m_outtakeSecLevelCommand.isRunning())
+                m_outtakeSecLevelCommand.start();            
+        }
+        else
+        {            
+            //If reverse drive, reset all ball mexhanisms
+            ballHandler.offIntake();
+            diskHandler.ballUp();       
+            
+            //Now let's look at the DS inputs
+            
+            //INTAKE
+            if (OI.Intake.get())
+                diskHandler.diskExtend();
+            else
+                diskHandler.diskRetract();
+            //EJECT
+            if (OI.Eject.get())
+                diskHandler.diskEject();
+            else
+                diskHandler.diskUnject();
+            //SLAP
+            if (OI.Slap.get())
+                diskHandler.diskDown();
+            else
+                diskHandler.diskUp();    
+
+            //Now the automated stuff... 
+            if(OI.AutoHigh.get() && !m_diskThirdLevel.isRunning())
+                m_diskThirdLevel.start();
+            if(OI.AutoMedium.get() && !m_diskSecondLevelCommand.isRunning())
+                m_diskSecondLevelCommand.start();
+        }      	
 	
+/*	
+        //elevator on xbox stick	
 		if(OI.elevator.getRawAxis(1) > .8)
 		{
 			elevator.elevatorDown();
 		}
 		else if(OI.elevator.getRawAxis(1) < -.8)
 		{
-			elevator.elevatorUp();
-			
+			elevator.elevatorUp();			
 		}
 		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_outtakeThirdLevel.isRunning() && ! m_diskThirdLevel.isRunning()) 
 		{
@@ -224,32 +241,9 @@ public class Robot extends TimedRobot
 		{
 			elevator.elevatorOff();
 		}
-	//Up and Down Manipulator toggle 
-		if(OI.diskManipulatorDown.get())
-		{
-			diskHandler.diskDown();
-		}
-		else
-		{
-			diskHandler.diskUp();
-		}
-	//Ejecting disk
-		
-		// Scheduler.getInstance().run();
-		// elevator control Logic 
-		/*if (OI.elevatorUp.get())
-		{
-			elevator.elevatorUp();
-		}
-		else if (OI.elevatorDown.get())
-		{
-			elevator.elevatorDown();
-		}
-		else 
-		{
-			elevator.elevatorOff();
-			}
-	*/	driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+*/	
+	
+		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
 		elevator.post();
 		Scheduler.getInstance().run();
