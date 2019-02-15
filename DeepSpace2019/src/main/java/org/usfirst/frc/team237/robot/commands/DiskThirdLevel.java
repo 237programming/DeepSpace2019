@@ -9,6 +9,7 @@ package org.usfirst.frc.team237.robot.commands;
 
 import org.usfirst.frc.team237.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DiskThirdLevel extends Command 
@@ -38,21 +39,45 @@ public class DiskThirdLevel extends Command
   @Override
   protected void execute() 
   {
-    
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -700000 && time < 0  )
+    {
+      Robot.elevator.elevatorUp();
+    }
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -700000 && time < 0 ) 
+    {
+      Robot.elevator.elevatorOff();
+      Robot.diskHandler.diskEject();
+      time = Timer.getFPGATimestamp();
+      dTime = time;
+    }
+    else if (dTime < time + 1)
+    {
+      dTime = Timer.getFPGATimestamp();
+    }
+   else
+    {
+      Robot.diskHandler.diskUnject();
+      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
+      {
+        Robot.elevator.elevatorDown();
+        m_done = true;
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() 
   {
-    return false;
+    return m_done;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() 
   {
-
+    Robot.diskHandler.diskUnject();
+    Robot.elevator.elevatorOff();
   }
 
   // Called when another command which requires one or more of the same
@@ -60,6 +85,7 @@ public class DiskThirdLevel extends Command
   @Override
   protected void interrupted() 
   {
-
+  Robot.diskHandler.diskUnject();
+  Robot.elevator.elevatorOff();
   }
 }

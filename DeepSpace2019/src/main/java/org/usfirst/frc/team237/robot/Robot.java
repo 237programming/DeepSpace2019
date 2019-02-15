@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
 import org.usfirst.frc.team237.robot.commands.DiskSecondLevel;
+import org.usfirst.frc.team237.robot.commands.DiskThirdLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeThirdLevel;
 import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
@@ -47,6 +48,7 @@ public class Robot extends TimedRobot
 	public static OuttakeSecondLevel m_outtakeSecLevelCommand = new OuttakeSecondLevel(); 
 	public static DiskSecondLevel m_diskSecondLevelCommand = new DiskSecondLevel();
 	public static OuttakeThirdLevel m_outtakeThirdLevel = new OuttakeThirdLevel();
+	public static DiskThirdLevel m_diskThirdLevel = new DiskThirdLevel();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -214,7 +216,7 @@ public class Robot extends TimedRobot
 			elevator.elevatorUp();
 			
 		}
-		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_outtakeThirdLevel.isRunning()) 
+		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_outtakeThirdLevel.isRunning() && ! m_diskThirdLevel.isRunning()) 
 		{
 			elevator.elevatorOff();
 		}
