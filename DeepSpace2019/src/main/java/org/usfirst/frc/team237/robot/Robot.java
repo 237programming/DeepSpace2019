@@ -222,26 +222,19 @@ public class Robot extends TimedRobot
             if(OI.AutoMedium.get() && !m_diskSecondLevelCommand.isRunning())
                 m_diskSecondLevelCommand.start();
         }      	
-	
-/*	
-        //elevator on xbox stick	
-		if(OI.elevator.getRawAxis(1) > .8)
-		{
+		
+        //Elevator controls	
+		if(OI.elevatorDown.get())
 			elevator.elevatorDown();
-		}
-		else if(OI.elevator.getRawAxis(1) < -.8)
-		{
+		else if(OI.elevatorUp.get())
 			elevator.elevatorUp();			
-		}
-		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_outtakeThirdLevel.isRunning() && ! m_diskThirdLevel.isRunning()) 
-		{
+		else
 			elevator.elevatorOff();
-		}
+		
 		if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) 
 		{
 			elevator.elevatorOff();
-		}
-*/	
+		}	
 	
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
