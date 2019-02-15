@@ -78,7 +78,7 @@ public class AutoRightSide extends Command
 
           case driveOffPlatform:
             //Robot.driveTrain.pidDrive(.6);
-            Robot.driveTrain.setDrives(.5, 0);
+            Robot.driveTrain.setDrives(-.5, 0);
             if(Robot.driveTrain.getEncPos()>8000)
             {
               Robot.driveTrain.disableRotateTo();
