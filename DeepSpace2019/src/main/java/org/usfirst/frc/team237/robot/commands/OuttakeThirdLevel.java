@@ -7,20 +7,20 @@
 
 package org.usfirst.frc.team237.robot.commands;
 
+import javax.lang.model.util.ElementScanner6;
+
 import org.usfirst.frc.team237.robot.Robot;
-import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
-import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OuttakeSecondLevel extends Command 
+public class OuttakeThirdLevel extends Command 
 {
-  private boolean m_done = false; 
+  private boolean m_done = false;
   private double time;
   private double dTime;
-   
-  public OuttakeSecondLevel() 
+
+  public OuttakeThirdLevel() 
   {
     requires(Robot.elevator);
     requires(Robot.ballHandler);
@@ -32,41 +32,37 @@ public class OuttakeSecondLevel extends Command
   @Override
   protected void initialize() 
   {
-    m_done = false; 
+    m_done = false;
     time = -1;
-    dTime = 0; 
+    dTime = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -550000 && time < 0  )
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -825000 && time < 0)
     {
       Robot.elevator.elevatorUp();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -550000 && time < 0)
+    else if (Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -825000 && time < 0)
     {
       Robot.elevator.elevatorOff();
       Robot.ballHandler.ballOuttake();
       time = Timer.getFPGATimestamp();
-      dTime = time; 
+      dTime = time;
     }
     else if (dTime < time + 1)
     {
-      dTime = Timer.getFPGATimestamp(); 
+      dTime = Timer.getFPGATimestamp();
     }
-    //max -600000
-    else 
+    else
     {
       Robot.ballHandler.offIntake();
-      //Robot.elevator.elevatorOff();
-      //m_done = true; 
-      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
+      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)
       {
         Robot.elevator.elevatorDown();
         m_done = true;
-        
       }
     }
   }

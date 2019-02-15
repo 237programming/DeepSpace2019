@@ -8,19 +8,16 @@
 package org.usfirst.frc.team237.robot.commands;
 
 import org.usfirst.frc.team237.robot.Robot;
-import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
-import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OuttakeSecondLevel extends Command 
+public class DiskThirdLevel extends Command 
 {
-  private boolean m_done = false; 
+  private boolean m_done = false;
   private double time;
   private double dTime;
-   
-  public OuttakeSecondLevel() 
+
+  public DiskThirdLevel() 
   {
     requires(Robot.elevator);
     requires(Robot.ballHandler);
@@ -32,58 +29,30 @@ public class OuttakeSecondLevel extends Command
   @Override
   protected void initialize() 
   {
-    m_done = false; 
+    m_done = false;
     time = -1;
-    dTime = 0; 
+    dTime = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -550000 && time < 0  )
-    {
-      Robot.elevator.elevatorUp();
-    }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -550000 && time < 0)
-    {
-      Robot.elevator.elevatorOff();
-      Robot.ballHandler.ballOuttake();
-      time = Timer.getFPGATimestamp();
-      dTime = time; 
-    }
-    else if (dTime < time + 1)
-    {
-      dTime = Timer.getFPGATimestamp(); 
-    }
-    //max -600000
-    else 
-    {
-      Robot.ballHandler.offIntake();
-      //Robot.elevator.elevatorOff();
-      //m_done = true; 
-      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
-      {
-        Robot.elevator.elevatorDown();
-        m_done = true;
-        
-      }
-    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() 
   {
-    return m_done;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() 
   {
-    Robot.ballHandler.offIntake();
-    Robot.elevator.elevatorOff();
+
   }
 
   // Called when another command which requires one or more of the same
@@ -91,7 +60,6 @@ public class OuttakeSecondLevel extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.ballHandler.offIntake();
-    Robot.elevator.elevatorOff();
+
   }
 }

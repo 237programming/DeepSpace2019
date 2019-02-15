@@ -35,6 +35,7 @@ public class OI
 	public static Button OuttakeSecLevel = new JoystickButton(driveJoystick, 10);
 	public static Button diskSecLevel = new JoystickButton(driveJoystick, 6);
 	public static Button switchDrives = new JoystickButton(driveJoystick, 7);
+	public static Button outtakeThirdLevel = new JoystickButton(driveJoystick, 2);
 
 	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
 	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.rightBumper);

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
 import org.usfirst.frc.team237.robot.commands.DiskSecondLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
+import org.usfirst.frc.team237.robot.commands.OuttakeThirdLevel;
 import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
 import org.usfirst.frc.team237.robot.commands.SwitchDrive;
 
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot
 	public static SwitchDrive m_reverseDrive = new SwitchDrive();
 	public static OuttakeSecondLevel m_outtakeSecLevelCommand = new OuttakeSecondLevel(); 
 	public static DiskSecondLevel m_diskSecondLevelCommand = new DiskSecondLevel();
+	public static OuttakeThirdLevel m_outtakeThirdLevel = new OuttakeThirdLevel();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -203,20 +205,21 @@ public class Robot extends TimedRobot
 		}
 	//elevator on xbox stick
 	
-		if(OI.elevator.getRawAxis(1) > .8 )
+		if(OI.elevator.getRawAxis(1) > .8)
 		{
 			elevator.elevatorDown();
 		}
-		else if(OI.elevator.getRawAxis(1) < -.8 )
+		else if(OI.elevator.getRawAxis(1) < -.8)
 		{
 			elevator.elevatorUp();
 			
 		}
-		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning()) 
+		else if(!m_outtakeSecLevelCommand.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_outtakeThirdLevel.isRunning()) 
 		{
 			elevator.elevatorOff();
 		}
-		if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) {
+		if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) 
+		{
 			elevator.elevatorOff();
 		}
 	//Up and Down Manipulator toggle 
