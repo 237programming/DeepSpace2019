@@ -7,21 +7,21 @@
 
 package org.usfirst.frc.team237.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import javax.lang.model.util.ElementScanner6;
+
 import org.usfirst.frc.team237.robot.Robot;
+
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 
-
-
-public class DiskSecondLevel extends Command 
+public class DiskFirstLevel extends Command
 {
-  private boolean m_done = false; 
+  private boolean m_done = false;
   private double time;
-  private double dTime; 
+  private double dTime;
 
-  public DiskSecondLevel() 
+  public DiskFirstLevel() 
   {
-    requires(Robot.elevator);
     requires(Robot.diskHandler);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -31,58 +31,44 @@ public class DiskSecondLevel extends Command
   @Override
   protected void initialize() 
   {
-    m_done = false; 
+    m_done = false;
     time = -1;
-    dTime = 0; 
+    dTime = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -450000 && time < 0  )
+    if (time < 0)
     {
-      Robot.elevator.elevatorUp();
-    }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -450000 && time < 0)
-    {
-      Robot.elevator.elevatorOff();
       Robot.diskHandler.diskEject();
       time = Timer.getFPGATimestamp();
-      dTime = time; 
+      dTime = time;
     }
     else if (dTime < time + 1)
     {
-      dTime = Timer.getFPGATimestamp(); 
+      dTime = Timer.getFPGATimestamp();
     }
-    //max -600000
     else 
     {
       Robot.diskHandler.diskUnject();
-      //Robot.elevator.elevatorOff();
-      //m_done = true; 
-      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
-      {
-        Robot.elevator.elevatorDown();
-        m_done = true;
-        
-      }
+      m_done = true;
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() 
+  protected boolean isFinished()
   {
     return m_done;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end()
+  protected void end() 
   {
     Robot.diskHandler.diskUnject();
-    Robot.elevator.elevatorOff();
   }
 
   // Called when another command which requires one or more of the same
@@ -91,6 +77,5 @@ public class DiskSecondLevel extends Command
   protected void interrupted() 
   {
     Robot.diskHandler.diskUnject();
-    Robot.elevator.elevatorOff();
   }
 }
