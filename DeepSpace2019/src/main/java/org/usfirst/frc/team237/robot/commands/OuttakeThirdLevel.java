@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class OuttakeThirdLevel extends Command 
 {
-  private boolean m_done = false;
+  private boolean m_done;
+  private boolean m_step2Done;
+  private boolean m_step1Done;
   private double time;
   private double dTime;
 
@@ -32,38 +34,40 @@ public class OuttakeThirdLevel extends Command
   @Override
   protected void initialize() 
   {
+    m_step1Done = false;
+    m_step2Done = false;
     m_done = false;
-    time = -1;
-    dTime = 0;
+    //time = -1;
+    //dTime = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -825000 && time < 0)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -825000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
     }
-    else if (Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -825000 && time < 0)
+    else if (Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -825000 && !m_step2Done)
+    {
+      m_step1Done = true;
+      Robot.elevator.elevatorUp();
+      Robot.ballHandler.ballOuttake();
+      //time = Timer.getFPGATimestamp();
+      //dTime = time;
+    }
+    
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)     
+     {
+        Robot.elevator.elevatorDown();
+        m_step2Done = true;
+      }
+    else  
     {
       Robot.elevator.elevatorOff();
-      Robot.ballHandler.ballOuttake();
-      time = Timer.getFPGATimestamp();
-      dTime = time;
-    }
-    else if (dTime < time + 1)
-    {
-      dTime = Timer.getFPGATimestamp();
-    }
-    else
-    {
       Robot.ballHandler.offIntake();
-      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)
-      {
-        Robot.elevator.elevatorDown();
-        m_done = true;
-      }
+      m_done = true; 
     }
   }
 
