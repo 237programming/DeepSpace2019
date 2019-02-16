@@ -7,28 +7,21 @@
 
 package org.usfirst.frc.team237.robot.commands;
 
-import javax.lang.model.util.ElementScanner6;
-
 import org.usfirst.frc.team237.robot.Robot;
 import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class OuttakeSecondLevel extends Command 
 {
-  
-  private enum State
-  {
-    start,
-    Up,
-    outtake,
-    Down,
-    finished,
-  };
-  private boolean m_done;
-  private State currentState;
-
+  private boolean m_step1Done;
+  private boolean m_step2Done;
+  private boolean m_done = false; 
+  private double time;
+  private double dTime;
+   
   public OuttakeSecondLevel() 
   {
     requires(Robot.elevator);
@@ -41,87 +34,45 @@ public class OuttakeSecondLevel extends Command
   @Override
   protected void initialize() 
   {
-    m_done = false;
+    m_step1Done = false;
+    m_step2Done = false;
+    m_done = false; 
+//    time = -1;
+//    dTime = 0; 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    switch (currentState)
-    {
-      case start:
-        currentState = State.Up;
-        break;
-
-      case Up:
-        if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -400000)
-        {
-          Robot.elevator.elevatorUp();
-        }
-        else
-        {
-          currentState = State.outtake;
-        }
-        break;
-        
-
-      case outtake: 
-        if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -400000 && Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -500000)
-        {
-          Robot.elevator.elevatorUp();
-          Robot.ballHandler.ballOuttake();
-        }
-        else   
-        {
-          currentState = State.Down;
-        }
-        break;
-
-      case Down: 
-        if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)
-        {
-          Robot.ballHandler.offIntake();
-          Robot.elevator.elevatorDown();
-        }
-        else 
-        {
-          currentState = State.finished;
-        }
-        break;        
-
-      case finished:
-        Robot.elevator.elevatorOff();
-        Robot.ballHandler.offIntake();
-        m_done = true;
-        break;
-
-      default: 
-        break;
-    }
-    /*
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -400000)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -400000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -400000 && Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -500000)
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) >  -650000 && !m_step2Done)
     {
+      m_step1Done = true;
       Robot.elevator.elevatorUp();
       Robot.ballHandler.ballOuttake();
+     // time = Timer.getFPGATimestamp();
+     //dTime = time; 
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 && ) 
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)
     {
-      Robot.ballHandler.offIntake();
+      m_step2Done = true;
+      //dTime = Timer.getFPGATimestamp(); 
+     // Robot.ballHandler.offIntake();
       Robot.elevator.elevatorDown();
-      
     }
+    //max -600000
     else 
     {
-      Robot.elevator.elevatorOff();
       Robot.ballHandler.offIntake();
-      m_done = true;
+      //Robot.elevator.elevatorOff();
+      //m_done = true; 
+        Robot.elevator.elevatorOff();
+        m_done = true;
     }
-    */
   }
 
   // Make this return true when this Command no longer needs to run execute()

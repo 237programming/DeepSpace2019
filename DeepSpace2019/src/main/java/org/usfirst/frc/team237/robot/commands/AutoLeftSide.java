@@ -19,6 +19,7 @@ public class AutoLeftSide extends Command
 
   private double time;
   private State currentState;
+  private double currentAngle;
    
 
   private enum State 
@@ -76,18 +77,19 @@ public class AutoLeftSide extends Command
         break;
 
       case driveOffPlatform:
-        Robot.driveTrain.pidDrive(1);
-        if(Robot.driveTrain.getEncPos()> 1000)
+        //Robot.driveTrain.pidDrive(1);
+        Robot.driveTrain.setDrives(.5, 0);
+        if(Robot.driveTrain.getEncPos() > 1000)
         {
           Robot.driveTrain.disableRotateTo();
-          Robot.driveTrain.zeroEnc();
-          Robot.driveTrain.setDrives(0, 0);
-          Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
+          //Robot.driveTrain.zeroEnc();
+          Robot.driveTrain.setDrives(0, -.4);
+          //Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
           time = Timer.getFPGATimestamp();
           currentState = State.reorient;
         }
         break;
-
+/*
       case reorient:
         Robot.driveTrain.setDrives(0,0);
         if(Timer.getFPGATimestamp() > time + 1.0 )
@@ -101,16 +103,16 @@ public class AutoLeftSide extends Command
           currentState = State.turnToAngle;
         }
         break;
-
+*/
       case turnToAngle:
-        Robot.driveTrain.pidDrive(1);
+        currentAngle = Robot.driveTrain.getYaw();
         if(Timer.getFPGATimestamp() > time + 1.0)
         {
-          Robot.driveTrain.disableRotateTo();
+          //Robot.driveTrain.disableRotateTo();
           Robot.driveTrain.zeroEnc();
-          Robot.driveTrain.setDrives(0, 0);
-          Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
-          Robot.driveTrain.rotateTo(-10);
+          Robot.driveTrain.setDrives(.5, 0);
+          //Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
+          //Robot.driveTrain.rotateTo(-10);
           currentState = State.moveAtAngle;
         }
         break;
