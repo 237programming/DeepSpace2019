@@ -38,7 +38,7 @@ public class OuttakeFirstLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -50000 && !m_step2Done)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -50000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
     }
@@ -48,12 +48,12 @@ public class OuttakeFirstLevel extends Command
       Robot.elevator.elevatorUp();
       Robot.ballHandler.ballOuttake();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)
+   /* else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
     {
       m_step2Done = true;
       Robot.elevator.elevatorDown();
-    }
-    else
+     }
+  */else
     {
       Robot.ballHandler.offIntake();
       Robot.elevator.elevatorOff();

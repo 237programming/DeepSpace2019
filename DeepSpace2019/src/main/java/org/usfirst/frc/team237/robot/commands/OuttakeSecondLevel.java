@@ -19,8 +19,8 @@ public class OuttakeSecondLevel extends Command
   private boolean m_step1Done;
   private boolean m_step2Done;
   private boolean m_done = false; 
-  private double time;
-  private double dTime;
+//  private double time;
+//  private double dTime;
    
   public OuttakeSecondLevel() 
   {
@@ -57,7 +57,7 @@ public class OuttakeSecondLevel extends Command
      // time = Timer.getFPGATimestamp();
      //dTime = time; 
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000)
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
     {
       m_step2Done = true;
       //dTime = Timer.getFPGATimestamp(); 

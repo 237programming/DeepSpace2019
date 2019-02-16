@@ -29,6 +29,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		slapSolenoid.set(true);
 	}
+
 	public void diskUp()
 	{
 		slapSolenoid.set(false);
@@ -38,6 +39,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		diskExtentionSolenoid.set(true);
 	}
+
 	public void diskRetract()
 	{
 		diskExtentionSolenoid.set(false);
@@ -47,6 +49,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		diskEjectSolenoid.set(true);
 	}
+
 	public void diskUnject()
 	{
 		diskEjectSolenoid.set(false);
@@ -56,6 +59,7 @@ public class DiskManipulatorSubsystem extends Subsystem
 	{
 		ballSolenoid.set(true);
 	}
+	
 	public void ballUp()
 	{
 		ballSolenoid.set(false);

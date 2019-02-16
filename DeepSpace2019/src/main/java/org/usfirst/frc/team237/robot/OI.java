@@ -50,7 +50,8 @@ public class OI
     
 	public static Button elevatorUp = new JoystickButton(panel, 5);
 	public static Button elevatorDown = new JoystickButton(panel, 6);
-    public static Button AutoMedium = new JoystickButton(panel, 2);
+    public static Button AutoLow = new JoystickButton(panel, 8);
+	public static Button AutoMedium = new JoystickButton(panel, 2);
     public static Button AutoHigh = new JoystickButton(panel, 1);
     public static Button Slap = new JoystickButton(panel, 3);
     public static Button Intake = new JoystickButton(panel, 7);

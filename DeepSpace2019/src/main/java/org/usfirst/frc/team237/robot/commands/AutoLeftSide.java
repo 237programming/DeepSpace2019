@@ -63,7 +63,6 @@ public class AutoLeftSide extends Command
     Robot.driveTrain.rotateTo(0);
     time = Timer.getFPGATimestamp();
     currentState = State.start;
-
   }
 
   // Called repeatedly when this Command is scheduled to run

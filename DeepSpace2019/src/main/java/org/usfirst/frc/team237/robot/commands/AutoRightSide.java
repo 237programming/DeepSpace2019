@@ -116,39 +116,39 @@ public class AutoRightSide extends Command
             break;
           
           case moveAtAngle:
-          if(Robot.driveTrain.getEncPos()>7800)
-          {
-            Robot.driveTrain.setDrives(0, -.4);
-            currentState = State.turnToRocketAngle;
-          }
+            if(Robot.driveTrain.getEncPos()>7800)
+            {
+              Robot.driveTrain.setDrives(0, -.4);
+              currentState = State.turnToRocketAngle;
+            }
             break;
 
           case turnToRocketAngle:
-          currentAngle = Robot.driveTrain.getYaw();
-          if(currentAngle > 145 && currentAngle < 150)
-          {
-            Robot.driveTrain.zeroEnc();
-            Robot.driveTrain.setDrives(.5, 0);
-            currentState = State.moveAtRocketAngle;
-          }
+            currentAngle = Robot.driveTrain.getYaw();
+            if(currentAngle > 145 && currentAngle < 150)
+            {
+              Robot.driveTrain.zeroEnc();
+              Robot.driveTrain.setDrives(.5, 0);
+              currentState = State.moveAtRocketAngle;
+            }
             break;
           
           case moveAtRocketAngle:
-          if(Robot.driveTrain.getEncPos()>1000)
-          {
-            Robot.driveTrain.setDrives(0, 0);
-            time = Timer.getFPGATimestamp();
-            currentState = State.timer;
-          }
-          break;
+            if(Robot.driveTrain.getEncPos()>1000)
+            {
+              Robot.driveTrain.setDrives(0, 0);
+              time = Timer.getFPGATimestamp();
+              currentState = State.timer;
+            }
+            break;
           
           case timer:
-          if(Timer.getFPGATimestamp() > time + 2)
-          {
-            time = Timer.getFPGATimestamp();
-            currentState = State.outtakeDisk;
-          }
-          break;
+            if(Timer.getFPGATimestamp() > time + 2)
+            {
+              time = Timer.getFPGATimestamp();
+              currentState = State.outtakeDisk;
+            }
+            break;
 
           case outtakeDisk:
             Robot.diskHandler.diskEject();
@@ -293,8 +293,8 @@ public class AutoRightSide extends Command
             }
             break; 
 
-            default:
-              break;
+          default:
+            break;
       }
   }
 

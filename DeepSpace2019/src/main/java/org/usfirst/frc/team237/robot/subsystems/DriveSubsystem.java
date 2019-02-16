@@ -57,7 +57,6 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		angularPID.setPercentTolerance(30);
 		angularPID.setContinuous();
 		
-		
 		gyro.reset();
 		
 		leftDrive.setSensorPhase(true);
@@ -72,8 +71,8 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
     	// You must tune the PID values on the following line!
     	m_right_follower.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
 		*/
-    	
 	}
+
 	public void enablePathFollower()
 	{
 		/*
@@ -81,6 +80,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		m_Notifier.startPeriodic(leftTrajectory.get(0).dt);
 		*/
 	}
+
 	public void followPath()
 	{
 		/*
@@ -100,6 +100,7 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		}
 		*/
 	}
+
 	public void stopMP()
 	{
 		/*
@@ -108,12 +109,12 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		rightDrive.set(0); 
 		*/
 	}
+
 	public void setDrives(double x, double y)
 	{
 			x = Math.abs(x) > RobotMap.deadband ? x : 0;
 			y = Math.abs(y) > RobotMap.deadband ? y : 0;
 			
-
 			if(reverseDriveFlag)
 			{
 				x = -x;
@@ -218,12 +219,14 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		angularPID.disable();
 		setDrives(0.0,0.0);
 	}
+
 	public void setPIDValues(double P, double I, double D)
 	{
 		angularPID.setP(P);
 		angularPID.setI(I);
 		angularPID.setD(D);
 	}
+
 	public void pidDrive(double speed)
 	{
 		setDrives(speed, PIDOutput);
@@ -253,7 +256,5 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	{
 		return reverseDriveFlag;
 	}
-
-	
 }
 

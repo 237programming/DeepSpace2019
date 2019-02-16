@@ -61,11 +61,10 @@ public class DiskSecondLevel extends Command
       Robot.diskHandler.diskUnject();
       //Robot.elevator.elevatorOff();
       //m_done = true; 
-      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
+      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
       {
         Robot.elevator.elevatorDown();
-        m_done = true;
-        
+        m_done = true;  
       }
     }
   }

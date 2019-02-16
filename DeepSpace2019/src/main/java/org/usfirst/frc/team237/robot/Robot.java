@@ -20,8 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
 
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
+import org.usfirst.frc.team237.robot.commands.DiskFirstLevel;
 import org.usfirst.frc.team237.robot.commands.DiskSecondLevel;
 import org.usfirst.frc.team237.robot.commands.DiskThirdLevel;
+import org.usfirst.frc.team237.robot.commands.OuttakeFirstLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeThirdLevel;
 import org.usfirst.frc.team237.robot.commands.PickUpDiskRoutine;
@@ -45,6 +47,8 @@ public class Robot extends TimedRobot
 	public static BallManipulatorSubsystem ballHandler = new BallManipulatorSubsystem();
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	public static SwitchDrive m_reverseDrive = new SwitchDrive();
+	public static OuttakeFirstLevel m_outtakeFirstLevelCommand = new OuttakeFirstLevel(); 
+	public static DiskFirstLevel m_diskFirstLevelCommand = new DiskFirstLevel();
 	public static OuttakeSecondLevel m_outtakeSecLevelCommand = new OuttakeSecondLevel(); 
 	public static DiskSecondLevel m_diskSecondLevelCommand = new DiskSecondLevel();
 	public static OuttakeThirdLevel m_outtakeThirdLevel = new OuttakeThirdLevel();
@@ -70,7 +74,6 @@ public class Robot extends TimedRobot
 		driveTrain.zeroEnc();
 		elevator.zeroEnc();
         m_PrevRevButtonState = false;
-		
 	}
 
 	/**
@@ -79,12 +82,14 @@ public class Robot extends TimedRobot
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
+	public void disabledInit() 
+	{
 
 	}
 
 	@Override
-	public void disabledPeriodic() {
+	public void disabledPeriodic() 
+	{
 		Scheduler.getInstance().run();
 		driveTrain.post();
 	}
@@ -101,7 +106,8 @@ public class Robot extends TimedRobot
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit() 
+	{
 		m_autonomousCommand = m_chooser.getSelected();
 		m_autonomousCommand = new AutoRightSide();
 
@@ -113,7 +119,8 @@ public class Robot extends TimedRobot
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null) 
+		{
 			m_autonomousCommand.start();
 		}
 	}
@@ -122,7 +129,8 @@ public class Robot extends TimedRobot
 	 * This function is called periodically during autonomous.
 	 */
 	@Override
-	public void autonomousPeriodic() {
+	public void autonomousPeriodic() 
+	{
 		Scheduler.getInstance().run();
 		driveTrain.post();
 		elevator.post();
@@ -135,7 +143,8 @@ public class Robot extends TimedRobot
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null) 
+		{
 			m_autonomousCommand.cancel();
 		}
 	}
@@ -147,9 +156,11 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic() 
     {        
         //First, check if a command is running. If so, don't check any inputs
-        if (m_diskThirdLevel.isRunning() || m_diskSecondLevelCommand.isRunning() || m_outtakeThirdLevel.isRunning() || m_outtakeSecLevelCommand.isRunning())
+        if (m_diskThirdLevel.isRunning() || m_diskSecondLevelCommand.isRunning() || m_diskFirstLevelCommand.isRunning() || m_outtakeThirdLevel.isRunning() || m_outtakeSecLevelCommand.isRunning() || m_outtakeFirstLevelCommand.isRunning())
         {
-            driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+            if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) 
+				elevator.elevatorOff();					
+			driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
             driveTrain.post();
             elevator.post();
             Scheduler.getInstance().run();
@@ -189,8 +200,10 @@ public class Robot extends TimedRobot
             //Now the automated stuff...
             if(OI.AutoHigh.get() && !m_outtakeThirdLevel.isRunning())
                 m_outtakeThirdLevel.start();
-            if(OI.AutoMedium.get() && !m_outtakeSecLevelCommand.isRunning())
-                m_outtakeSecLevelCommand.start();            
+            else if(OI.AutoMedium.get() && !m_outtakeSecLevelCommand.isRunning())
+				m_outtakeSecLevelCommand.start(); 
+			else if(OI.AutoLow.get() && !m_outtakeFirstLevelCommand.isRunning())
+                m_outtakeFirstLevelCommand.start(); 	           
         }
         else
         {            
@@ -219,8 +232,10 @@ public class Robot extends TimedRobot
             //Now the automated stuff... 
             if(OI.AutoHigh.get() && !m_diskThirdLevel.isRunning())
                 m_diskThirdLevel.start();
-            if(OI.AutoMedium.get() && !m_diskSecondLevelCommand.isRunning())
-                m_diskSecondLevelCommand.start();
+            else if(OI.AutoMedium.get() && !m_diskSecondLevelCommand.isRunning())
+				m_diskSecondLevelCommand.start();
+			else if(OI.AutoLow.get() && !m_diskFirstLevelCommand.isRunning())
+                m_diskFirstLevelCommand.start();	
         }      	
 		
         //Elevator controls	

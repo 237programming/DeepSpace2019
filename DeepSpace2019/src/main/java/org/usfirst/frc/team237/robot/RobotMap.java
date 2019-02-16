@@ -77,5 +77,4 @@ public class RobotMap
 		public static double driveP = 0.05;
 		public static double driveI = 0.001;
 		public static double driveD = 0.0;
-
 }

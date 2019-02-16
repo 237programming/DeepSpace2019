@@ -39,11 +39,11 @@ public class DiskThirdLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -700000 && time < 0  )
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -700000 && time < 0)
     {
       Robot.elevator.elevatorUp();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -700000 && time < 0 ) 
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -700000 && time < 0) 
     {
       Robot.elevator.elevatorOff();
       Robot.diskHandler.diskEject();
@@ -54,10 +54,10 @@ public class DiskThirdLevel extends Command
     {
       dTime = Timer.getFPGATimestamp();
     }
-   else
+    else
     {
       Robot.diskHandler.diskUnject();
-      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -1000 )
+      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
       {
         Robot.elevator.elevatorDown();
         m_done = true;

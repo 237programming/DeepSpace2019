@@ -24,6 +24,7 @@ public class PickUpDiskRoutine extends Command
     slapUp,
     finished
   };
+
   public PickUpDiskRoutine() 
   { 
     requires(Robot.diskHandler);
@@ -49,47 +50,45 @@ public class PickUpDiskRoutine extends Command
         currentState = State.slapDown;
         break;
 
-
       case slapDown:
-      Robot.diskHandler.diskDown();
-      if(Timer.getFPGATimestamp() > time + 1)
-      {
-        time = Timer.getFPGATimestamp();
-        currentState = State.extend;
-      }
-      break;
+        Robot.diskHandler.diskDown();
+        if(Timer.getFPGATimestamp() > time + 1)
+        {
+          time = Timer.getFPGATimestamp();
+          currentState = State.extend;
+        }
+        break;
 
       case extend:
-      Robot.diskHandler.diskExtend();
-      if(Timer.getFPGATimestamp() > time + 0.5)
-      {
-        time = Timer.getFPGATimestamp();
-        currentState = State.retract;
-      }
-      break;
+        Robot.diskHandler.diskExtend();
+        if(Timer.getFPGATimestamp() > time + 0.5)
+        {
+          time = Timer.getFPGATimestamp();
+          currentState = State.retract;
+        }
+        break;
 
       case retract:
-      Robot.diskHandler.diskRetract();
-      if(Timer.getFPGATimestamp() > time + 0.5)
-      {
-        time = Timer.getFPGATimestamp();
-        currentState = State.slapUp;
-      }
-      break;
+        Robot.diskHandler.diskRetract();
+        if(Timer.getFPGATimestamp() > time + 0.5)
+        {
+          time = Timer.getFPGATimestamp();
+          currentState = State.slapUp;
+        }
+        break;
 
       case slapUp: 
-      Robot.diskHandler.diskUp();
-      if(Timer.getFPGATimestamp() > time + 1)
-      {
-        time = Timer.getFPGATimestamp();
-        currentState = State.finished;
-      }
-      break;
+        Robot.diskHandler.diskUp();
+        if(Timer.getFPGATimestamp() > time + 1)
+        {
+          time = Timer.getFPGATimestamp();
+          currentState = State.finished;
+        }
+        break;
 
       default:
-      break;
-    }
-
+        break;
+      }
   }
 
   // Make this return true when this Command no longer needs to run execute()
