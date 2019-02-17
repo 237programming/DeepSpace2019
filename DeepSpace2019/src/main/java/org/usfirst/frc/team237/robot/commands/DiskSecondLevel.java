@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DiskSecondLevel extends Command 
 {
-  private boolean m_done = false; 
+  private boolean m_step1Done;
+  private boolean m_step2Done;
+  private boolean m_done; 
   private double time;
   private double dTime; 
 
@@ -31,6 +33,8 @@ public class DiskSecondLevel extends Command
   @Override
   protected void initialize() 
   {
+    m_step1Done = false;
+    m_step2Done = false;
     m_done = false; 
     time = -1;
     dTime = 0; 
@@ -40,12 +44,13 @@ public class DiskSecondLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -450000 && time < 0  )
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -450000 && time < 0 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -450000 && time < 0)
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -450000 && time < 0 && !m_step2Done)
     {
+      m_step1Done = true;
       Robot.elevator.elevatorOff();
       Robot.diskHandler.diskEject();
       time = Timer.getFPGATimestamp();
@@ -53,6 +58,7 @@ public class DiskSecondLevel extends Command
     }
     else if (dTime < time + 1)
     {
+      m_step2Done = true;
       dTime = Timer.getFPGATimestamp(); 
     }
     //max -600000
@@ -64,7 +70,10 @@ public class DiskSecondLevel extends Command
       if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
       {
         Robot.elevator.elevatorDown();
-        m_done = true;  
+      }
+      else
+      {
+        m_done = true;
       }
     }
   }

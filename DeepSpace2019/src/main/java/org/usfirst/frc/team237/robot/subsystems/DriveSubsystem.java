@@ -8,10 +8,12 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Notifier;
 /*
@@ -35,6 +37,8 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	private WPI_TalonSRX rightDriveSlave = new WPI_TalonSRX(RobotMap.driveTalonBR);
 //	private AHRS gyro = new AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, (byte) 200);
 	private AHRS gyro = new AHRS(SPI.Port.kMXP);
+	private Relay ballLED = new Relay(0);
+	private Relay diskLED = new Relay(1);
 	private PIDController angularPID = new PIDController(0.1, 0.0, 0.1, gyro, this);
 	private double PIDOutput = 0;
 	private boolean reverseDriveFlag = false;
@@ -56,6 +60,8 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 		angularPID.setOutputRange(-0.7, 0.7);
 		angularPID.setPercentTolerance(30);
 		angularPID.setContinuous();
+		ballLED.set(Value.kOff);
+		diskLED.set(Value.kForward);
 		
 		gyro.reset();
 		
@@ -250,6 +256,16 @@ public class DriveSubsystem extends Subsystem implements edu.wpi.first.wpilibj.P
 	public void reverseDriveSetter(boolean flag)
 	{
 		reverseDriveFlag = flag;
+		if(flag)
+		{
+			ballLED.set(Value.kForward);
+			diskLED.set(Value.kOff);
+		}
+		else
+		{
+			ballLED.set(Value.kOff);
+			diskLED.set(Value.kForward);
+		}
 	}
 
 	public boolean reverseDrive()

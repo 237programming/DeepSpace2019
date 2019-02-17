@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DiskThirdLevel extends Command 
 {
-  private boolean m_done = false;
+  private boolean m_step1Done;
+  private boolean m_step2Done;
+  private boolean m_done;
   private double time;
   private double dTime;
 
@@ -30,6 +32,8 @@ public class DiskThirdLevel extends Command
   @Override
   protected void initialize() 
   {
+    m_step1Done = false;
+    m_step2Done = false;
     m_done = false;
     time = -1;
     dTime = 0;
@@ -39,12 +43,17 @@ public class DiskThirdLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -810000 && time < 0)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -830000 && time < 0 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
+      if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -790000)
+      {
+        Robot.diskHandler.diskEject();
+      }
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -810000 && time < 0) 
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -830000 && time < 0 && !m_step2Done) 
     {
+      m_step1Done = true;
       Robot.elevator.elevatorOff();
       Robot.diskHandler.diskEject();
       time = Timer.getFPGATimestamp();
@@ -52,6 +61,7 @@ public class DiskThirdLevel extends Command
     }
     else if (dTime < time + 1)
     {
+      m_step2Done = true;
       dTime = Timer.getFPGATimestamp();
     }
     else
@@ -60,6 +70,9 @@ public class DiskThirdLevel extends Command
       if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
       {
         Robot.elevator.elevatorDown();
+      }
+      else
+      {
         m_done = true;
       }
     }

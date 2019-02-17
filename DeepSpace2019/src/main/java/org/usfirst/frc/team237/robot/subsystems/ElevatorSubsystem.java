@@ -28,13 +28,21 @@ public class ElevatorSubsystem extends Subsystem
 	
 	public void elevatorUp()
 	{
-		leftElevator.set(-1);
+		leftElevator.set(-.75);
 	}
 	
 	public void elevatorDown()
 	{
 		leftElevator.set(.15);
-	}
+	/*	if(leftElevator.getSelectedSensorPosition(0) > -60000)
+		{
+			leftElevator.set(.2);
+		}
+		else
+		{
+			leftElevator.set(.15);
+		}
+*/	}
 	
 	public void elevatorOff()
 	{
