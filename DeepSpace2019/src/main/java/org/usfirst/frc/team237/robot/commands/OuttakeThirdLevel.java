@@ -45,11 +45,11 @@ public class OuttakeThirdLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -700000 && !m_step1Done)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -775000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
     }
-    else if (Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -800000 && !m_step2Done)
+    else if (Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -825000 && !m_step2Done)
     {
       m_step1Done = true;
       Robot.elevator.elevatorUp();

@@ -33,7 +33,7 @@ public class ElevatorSubsystem extends Subsystem
 	
 	public void elevatorDown()
 	{
-		leftElevator.set(.2);
+		leftElevator.set(.15);
 	}
 	
 	public void elevatorOff()

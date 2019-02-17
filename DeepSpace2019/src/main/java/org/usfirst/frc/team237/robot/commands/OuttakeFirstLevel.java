@@ -9,6 +9,7 @@ package org.usfirst.frc.team237.robot.commands;
 
 import org.usfirst.frc.team237.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class OuttakeFirstLevel extends Command 
@@ -16,6 +17,7 @@ public class OuttakeFirstLevel extends Command
   private boolean m_step1Done;
   private boolean m_step2Done;
   private boolean m_done = false;
+  private double time;
 
   public OuttakeFirstLevel() 
   {
@@ -32,6 +34,7 @@ public class OuttakeFirstLevel extends Command
     m_step1Done = false;
     m_step2Done = false;
     m_done = false;
+    time = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -47,17 +50,18 @@ public class OuttakeFirstLevel extends Command
       m_step1Done = true;
       Robot.elevator.elevatorUp();
       Robot.ballHandler.ballOuttake();
+      time = Timer.getFPGATimestamp();
     }
-   /* else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -250000)
+    else if( Timer.getFPGATimestamp() <= time + 1)
     {
-      m_step2Done = true;
-      Robot.elevator.elevatorDown();
-     }
-  */else
-    {
-      Robot.ballHandler.offIntake();
       Robot.elevator.elevatorOff();
+      m_step2Done = true;
+      //Robot.elevator.elevatorDown();
+     }
+    else
+    {
       m_done = true;
+ //     Robot.ballHandler.offIntake();
     }
   }
 
@@ -72,7 +76,7 @@ public class OuttakeFirstLevel extends Command
   @Override
   protected void end() 
   {
-    Robot.ballHandler.offIntake();
+  //  Robot.ballHandler.offIntake();
     Robot.elevator.elevatorOff();
   }
 

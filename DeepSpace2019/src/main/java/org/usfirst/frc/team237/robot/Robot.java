@@ -160,6 +160,16 @@ public class Robot extends TimedRobot
         {
             if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) 
 				elevator.elevatorOff();					
+			if(OI.elevatorDown.get() || OI.elevatorUp.get() || elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight)
+			{
+				m_diskThirdLevel.cancel();
+				m_diskSecondLevelCommand.cancel();
+				m_diskFirstLevelCommand.cancel();
+				m_outtakeThirdLevel.cancel();
+				m_outtakeSecLevelCommand.cancel();
+				m_outtakeFirstLevelCommand.cancel();
+			}
+						
 			driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
             driveTrain.post();
             elevator.post();
