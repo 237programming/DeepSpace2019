@@ -29,8 +29,8 @@ public class AutoLeftSide extends Command
     reorient,
     turnToAngle,
     moveAtAngle,
-    turnAtRocketAngle,
-    moveToRocket,
+    turnToRocketAngle,
+    moveAtRocketAngle,
     outtakeDisk,
     backAwayFromRocket,
     turnToBase,
@@ -77,15 +77,15 @@ public class AutoLeftSide extends Command
 
       case driveOffPlatform:
         //Robot.driveTrain.pidDrive(1);
-        Robot.driveTrain.setDrives(.5, 0);
-        if(Robot.driveTrain.getEncPos() > 1000)
+        Robot.driveTrain.setDrives(.7, .17);
+        if(Robot.driveTrain.getEncPos() > 16000)
         {
           Robot.driveTrain.disableRotateTo();
           //Robot.driveTrain.zeroEnc();
-          Robot.driveTrain.setDrives(0, -.4);
+          Robot.driveTrain.setDrives(0, .4);
           //Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
           time = Timer.getFPGATimestamp();
-          currentState = State.reorient;
+          currentState = State.turnToRocketAngle;
         }
         break;
 /*
@@ -126,24 +126,21 @@ public class AutoLeftSide extends Command
           Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
           Robot.driveTrain.rotateTo(RobotMap.backLeftRocket);
           time = Timer.getFPGATimestamp();
-          currentState = State.turnAtRocketAngle;
+          currentState = State.turnToRocketAngle;
         }
         break;
 
-      case turnAtRocketAngle:
-        Robot.driveTrain.pidDrive(1);
-        if(Timer.getFPGATimestamp() > time + 1.0)
+      case turnToRocketAngle:
+        currentAngle = Robot.driveTrain.getYaw();
+        if (currentAngle < -130 && currentAngle > -135)
         {
-          Robot.driveTrain.disableRotateTo();
           Robot.driveTrain.zeroEnc();
-          Robot.driveTrain.setDrives(0, 0);
-          Robot.driveTrain.setPIDValues(RobotMap.driveP, RobotMap.driveI, RobotMap.driveD);
-          Robot.driveTrain.rotateTo(RobotMap.backLeftRocket);
-          currentState = State.moveToRocket;
+          Robot.driveTrain.setDrives(.5, 0);
+          currentState = State.finished;
         }
         break;
 
-      case moveToRocket:
+      case moveAtRocketAngle:
         Robot.driveTrain.pidDrive(1);
         if(Robot.driveTrain.getEncPos() > 1000 )
         {
@@ -321,7 +318,7 @@ public class AutoLeftSide extends Command
   @Override
   protected void end() 
   {
-    Robot.driveTrain.disableRotateTo();
+    
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
   }
@@ -331,7 +328,7 @@ public class AutoLeftSide extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.driveTrain.disableRotateTo();
+    
     Robot.driveTrain.setDrives(0, 0);
     Robot.driveTrain.zeroEnc();
     Robot.diskHandler.diskUnject();

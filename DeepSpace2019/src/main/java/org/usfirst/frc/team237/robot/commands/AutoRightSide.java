@@ -78,16 +78,16 @@ public class AutoRightSide extends Command
 
           case driveOffPlatform:
             //Robot.driveTrain.pidDrive(.6);
-            Robot.driveTrain.setDrives(-.5, 0);
-            if(Robot.driveTrain.getEncPos()>8000)
+            Robot.driveTrain.setDrives(.7, -.2);
+            if(Robot.driveTrain.getEncPos()> 16000)
             {
               Robot.driveTrain.disableRotateTo();
               //Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(0, -.4);
              // Robot.driveTrain.setPIDValues(RobotMap.turnP, RobotMap.turnI, RobotMap.turnD);
               //Robot.driveTrain.rotateTo(0);
-              time = Timer.getFPGATimestamp();
-              currentState = State.turnToAngle;
+              //time = Timer.getFPGATimestamp();
+              currentState = State.turnToRocketAngle;
             }
             break;
 /*
@@ -116,7 +116,7 @@ public class AutoRightSide extends Command
             break;
           
           case moveAtAngle:
-            if(Robot.driveTrain.getEncPos()>7800)
+            if(Robot.driveTrain.getEncPos()>6800)
             {
               Robot.driveTrain.setDrives(0, -.4);
               currentState = State.turnToRocketAngle;
@@ -125,11 +125,11 @@ public class AutoRightSide extends Command
 
           case turnToRocketAngle:
             currentAngle = Robot.driveTrain.getYaw();
-            if(currentAngle > 145 && currentAngle < 150)
+            if(currentAngle > 130 && currentAngle < 135)
             {
               Robot.driveTrain.zeroEnc();
               Robot.driveTrain.setDrives(.5, 0);
-              currentState = State.moveAtRocketAngle;
+              currentState = State.finished;
             }
             break;
           

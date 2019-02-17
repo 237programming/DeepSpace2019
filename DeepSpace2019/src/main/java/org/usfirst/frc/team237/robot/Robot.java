@@ -18,8 +18,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 
+import javax.lang.model.util.ElementScanner6;
+
+import org.usfirst.frc.team237.robot.commands.AutoLeftSide;
 import org.usfirst.frc.team237.robot.commands.AutoRightSide;
+import org.usfirst.frc.team237.robot.commands.AutoCenterSide;
 import org.usfirst.frc.team237.robot.commands.DiskFirstLevel;
 import org.usfirst.frc.team237.robot.commands.DiskSecondLevel;
 import org.usfirst.frc.team237.robot.commands.DiskThirdLevel;
@@ -56,7 +61,9 @@ public class Robot extends TimedRobot
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
     private boolean m_RevButtonState;
-    private boolean m_PrevRevButtonState;
+	private boolean m_PrevRevButtonState;
+	private DigitalInput autoSwitch1 = new DigitalInput(0);
+	private DigitalInput autoSwitch2 = new DigitalInput(1);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -69,7 +76,7 @@ public class Robot extends TimedRobot
 		CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		
 		driveTrain.zeroYaw();
 		driveTrain.zeroEnc();
 		elevator.zeroEnc();
@@ -91,6 +98,8 @@ public class Robot extends TimedRobot
 	public void disabledPeriodic() 
 	{
 		Scheduler.getInstance().run();
+		SmartDashboard.putData("sw 1", autoSwitch1);
+		SmartDashboard.putData("sw 2", autoSwitch2);
 		driveTrain.post();
 	}
 
@@ -108,8 +117,22 @@ public class Robot extends TimedRobot
 	@Override
 	public void autonomousInit() 
 	{
-		m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new AutoRightSide();
+		if(!autoSwitch1.get())
+		{
+			m_autonomousCommand = new AutoLeftSide();
+		}
+		else if(!autoSwitch2.get())
+		{
+			m_autonomousCommand = new AutoRightSide();
+		}
+		else     
+		{
+			m_autonomousCommand = new AutoCenterSide();
+		}
+		//m_autonomousCommand = m_chooser.getSelected();
+		//m_autonomousCommand = new AutoLeftSide();
+		//m_autonomousCommand = new AutoRightSide();
+		//m_autonomousCommand = new AutoCenterSide();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -132,6 +155,31 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic() 
 	{
 		Scheduler.getInstance().run();
+		if(OI.driveJoystick.getX() > .5 || OI.driveJoystick.getX() < -.5 )
+		{
+			m_autonomousCommand.cancel();
+		}
+		if(!m_autonomousCommand.isRunning())
+		{
+			driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+			//INTAKE
+            if (OI.Intake.get())
+                diskHandler.diskExtend();
+            else
+                diskHandler.diskRetract();
+            //EJECT
+            if (OI.Eject.get())
+                diskHandler.diskEject();
+            else
+                diskHandler.diskUnject();
+            //SLAP
+            if (OI.Slap.get())
+                diskHandler.diskDown();
+            else
+				diskHandler.diskUp();
+
+			ballHandler.offIntake();
+		}
 		driveTrain.post();
 		elevator.post();
 	}
