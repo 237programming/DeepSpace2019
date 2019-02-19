@@ -129,6 +129,8 @@ public class Robot extends TimedRobot
 		{
 			m_autonomousCommand = new AutoCenterSide();
 		}
+
+		driveTrain.reverseDriveSetter(false);
 		//m_autonomousCommand = m_chooser.getSelected();
 		//m_autonomousCommand = new AutoLeftSide();
 		//m_autonomousCommand = new AutoRightSide();
