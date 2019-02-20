@@ -28,7 +28,7 @@ public class ElevatorSubsystem extends Subsystem
 	
 	public void elevatorUp()
 	{
-		leftElevator.set(-.75);
+		leftElevator.set(-1);
 	}
 	
 	public void elevatorDown()
@@ -47,6 +47,11 @@ public class ElevatorSubsystem extends Subsystem
 	public void elevatorOff()
 	{
 		leftElevator.set(0);
+	}
+
+	public void setSpeed(double speed)
+	{
+		leftElevator.set(speed);
 	}
 
 	public void post()

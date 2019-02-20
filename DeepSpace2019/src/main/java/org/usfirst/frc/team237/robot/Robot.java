@@ -163,24 +163,34 @@ public class Robot extends TimedRobot
 		}
 		if(!m_autonomousCommand.isRunning())
 		{
-			driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
-			//INTAKE
-            if (OI.Intake.get())
-                diskHandler.diskExtend();
-            else
-                diskHandler.diskRetract();
-            //EJECT
-            if (OI.Eject.get())
-                diskHandler.diskEject();
-            else
-                diskHandler.diskUnject();
-            //SLAP
-            if (OI.Slap.get())
-                diskHandler.diskDown();
-            else
-				diskHandler.diskUp();
+			if (!m_diskThirdLevel.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_diskFirstLevelCommand.isRunning())
+			{
+				driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
+				//INTAKE
+            	if (OI.Intake.get())
+                	diskHandler.diskExtend();
+           		else
+					diskHandler.diskRetract();
+				// EJECT
+				if (OI.Eject.get())
+					diskHandler.diskEject();
+				else
+					diskHandler.diskUnject();
+				// SLAP
+				if (OI.Slap.get())
+					diskHandler.diskDown();
+				else
+					diskHandler.diskUp();
 
-			ballHandler.offIntake();
+				ballHandler.offIntake();
+			}
+			//Automated stuff
+			if(OI.AutoHigh.get() && !m_diskThirdLevel.isRunning())
+                m_diskThirdLevel.start();
+            else if(OI.AutoMedium.get() && !m_diskSecondLevelCommand.isRunning())
+				m_diskSecondLevelCommand.start();
+			else if(OI.AutoLow.get() && !m_diskFirstLevelCommand.isRunning())
+				m_diskFirstLevelCommand.start();	
 		}
 		driveTrain.post();
 		elevator.post();

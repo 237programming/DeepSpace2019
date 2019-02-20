@@ -54,14 +54,15 @@ public class DiskThirdLevel extends Command
     else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -830000 && time < 0 && !m_step2Done) 
     {
       m_step1Done = true;
-      Robot.elevator.elevatorOff();
+      Robot.elevator.setSpeed(-.5);
       Robot.diskHandler.diskEject();
       time = Timer.getFPGATimestamp();
       dTime = time;
     }
-    else if (dTime < time + 1)
+    else if (dTime < time + .5)
     {
       m_step2Done = true;
+      //Robot.elevator.elevatorOff();
       dTime = Timer.getFPGATimestamp();
     }
     else

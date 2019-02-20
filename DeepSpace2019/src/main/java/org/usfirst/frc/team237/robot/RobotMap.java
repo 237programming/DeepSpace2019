@@ -34,11 +34,11 @@ public class RobotMap
 	
 	//elevator stuff
 		public static int elevatorMaxHeight = -900000;
+		public static int elevatorMotor1 = 11;
+		public static int elevatorMotor2 = 12;
 		
 	//ball manipulator stuff
 		public static int ballMotor = 4;
-		public static int elevatorMotor1 = 11;
-		public static int elevatorMotor2 = 12;
 		
 	//disk manipulator stuff
 		public static int diskExtentionSol = 0;

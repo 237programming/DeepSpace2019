@@ -65,6 +65,17 @@ public class DiskManipulatorSubsystem extends Subsystem
 		ballSolenoid.set(false);
 	}
 	
+	public void compressorOnOff(boolean on)
+	{
+		if(on)
+		{
+			compressor.start();
+		}
+		else
+		{
+			compressor.stop();
+		}
+	}
     public void initDefaultCommand() 
     {
         // Set the default command for a subsystem here.
