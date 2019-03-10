@@ -59,7 +59,7 @@ public class DiskThirdLevel extends Command
       time = Timer.getFPGATimestamp();
       dTime = time;
     }
-    else if (dTime < time + .5)
+    else if (dTime < time + .7)
     {
       m_step2Done = true;
       //Robot.elevator.elevatorOff();

@@ -163,9 +163,9 @@ public class Robot extends TimedRobot
 		}
 		if(!m_autonomousCommand.isRunning())
 		{
+			driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 			if (!m_diskThirdLevel.isRunning() && !m_diskSecondLevelCommand.isRunning() && !m_diskFirstLevelCommand.isRunning())
 			{
-				driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 				//INTAKE
             	if (OI.Intake.get())
                 	diskHandler.diskExtend();
