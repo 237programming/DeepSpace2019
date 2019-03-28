@@ -28,6 +28,7 @@ import org.usfirst.frc.team237.robot.commands.AutoCenterSide;
 import org.usfirst.frc.team237.robot.commands.DiskFirstLevel;
 import org.usfirst.frc.team237.robot.commands.DiskSecondLevel;
 import org.usfirst.frc.team237.robot.commands.DiskThirdLevel;
+import org.usfirst.frc.team237.robot.commands.OuttakeCargoShip;
 import org.usfirst.frc.team237.robot.commands.OuttakeFirstLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeSecondLevel;
 import org.usfirst.frc.team237.robot.commands.OuttakeThirdLevel;
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot
 	public static DiskSecondLevel m_diskSecondLevelCommand = new DiskSecondLevel();
 	public static OuttakeThirdLevel m_outtakeThirdLevel = new OuttakeThirdLevel();
 	public static DiskThirdLevel m_diskThirdLevel = new DiskThirdLevel();
+	public static OuttakeCargoShip m_outtakeCargoShip = new OuttakeCargoShip();
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
     private boolean m_RevButtonState;
@@ -191,6 +193,8 @@ public class Robot extends TimedRobot
 				m_diskSecondLevelCommand.start();
 			else if(OI.AutoLow.get() && !m_diskFirstLevelCommand.isRunning())
 				m_diskFirstLevelCommand.start();	
+			else if(OI.AutoShip.get() && !m_diskFirstLevelCommand.isRunning())
+				m_diskFirstLevelCommand.start();
 		}
 		driveTrain.post();
 		elevator.post();
@@ -216,7 +220,7 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic() 
     {        
         //First, check if a command is running. If so, don't check any inputs
-        if (m_diskThirdLevel.isRunning() || m_diskSecondLevelCommand.isRunning() || m_diskFirstLevelCommand.isRunning() || m_outtakeThirdLevel.isRunning() || m_outtakeSecLevelCommand.isRunning() || m_outtakeFirstLevelCommand.isRunning())
+        if (m_diskThirdLevel.isRunning() || m_diskSecondLevelCommand.isRunning() || m_diskFirstLevelCommand.isRunning() || m_outtakeThirdLevel.isRunning() || m_outtakeSecLevelCommand.isRunning() || m_outtakeFirstLevelCommand.isRunning() || m_outtakeCargoShip.isRunning())
         {
             if (elevator.leftElevator.getSelectedSensorPosition(0) < RobotMap.elevatorMaxHeight) 
 				elevator.elevatorOff();					
@@ -273,7 +277,9 @@ public class Robot extends TimedRobot
             else if(OI.AutoMedium.get() && !m_outtakeSecLevelCommand.isRunning())
 				m_outtakeSecLevelCommand.start(); 
 			else if(OI.AutoLow.get() && !m_outtakeFirstLevelCommand.isRunning())
-                m_outtakeFirstLevelCommand.start(); 	           
+				m_outtakeFirstLevelCommand.start(); 	   
+			else if(OI.AutoShip.get() && !m_outtakeCargoShip.isRunning())
+				m_outtakeCargoShip.start();        
         }
         else
         {            
@@ -305,7 +311,9 @@ public class Robot extends TimedRobot
             else if(OI.AutoMedium.get() && !m_diskSecondLevelCommand.isRunning())
 				m_diskSecondLevelCommand.start();
 			else if(OI.AutoLow.get() && !m_diskFirstLevelCommand.isRunning())
-                m_diskFirstLevelCommand.start();	
+				m_diskFirstLevelCommand.start();
+			else if(OI.AutoShip.get() && !m_diskFirstLevelCommand.isRunning())
+				m_diskFirstLevelCommand.start();	
         }      	
 		
         //Elevator controls	

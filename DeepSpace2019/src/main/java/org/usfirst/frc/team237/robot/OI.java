@@ -32,19 +32,20 @@ public class OI
 	public static Joystick ballOuttake = new Joystick(0);
 	public static Joystick elevator = new Joystick(0);
 
-	public static Button OuttakeSecLevel = new JoystickButton(driveJoystick, 10);
-	public static Button diskSecLevel = new JoystickButton(driveJoystick, 6);
-	public static Button switchDrives = new JoystickButton(driveJoystick, 7);
-	public static Button outtakeThirdLevel = new JoystickButton(driveJoystick, 2);
-	public static Button diskThirdLevel = new JoystickButton(driveJoystick, 3);
+//	public static Button OuttakeSecLevel = new JoystickButton(driveJoystick, 10);
+//	public static Button diskSecLevel = new JoystickButton(driveJoystick, 6);
+	public static Button switchDrives = new JoystickButton(driveJoystick, 11);
+//	public static Button outtakeThirdLevel = new JoystickButton(driveJoystick, 2);
+//	public static Button diskThirdLevel = new JoystickButton(driveJoystick, 3);
+	public static Button AutoShip = new JoystickButton(driveJoystick, 1);
 
-	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
-	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.rightBumper);
-	public static Button eject = new JoystickButton(driveJoystick, 1);
+//	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
+//	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.rightBumper);
+//	public static Button eject = new JoystickButton(driveJoystick, 1);
 	//public static Button elevatorUp = new JoystickButton(driveJoystick, 6);
 	//public static Button elevatorDown = new JoystickButton(driveJoystick, 7);
-	public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
-	public static Button ballManipulatorDown = new JoystickButton(controller, RobotMap.Y);
+//	public static Button pickUpDisk = new JoystickButton(controller, RobotMap.A);
+//	public static Button ballManipulatorDown = new JoystickButton(controller, RobotMap.Y);
 
     
     
@@ -52,7 +53,8 @@ public class OI
 	public static Button elevatorDown = new JoystickButton(panel, 6);
     public static Button AutoLow = new JoystickButton(panel, 2);
 	public static Button AutoMedium = new JoystickButton(panel, 1);
-    public static Button AutoHigh = new JoystickButton(panel, 8);
+	public static Button AutoHigh = new JoystickButton(panel, 8);
+//	public static Button AutoShip = new JoystickButton(panel, 9);
 
     public static Button Slap = new JoystickButton(panel, 3);
     public static Button Intake = new JoystickButton(panel, 7);

@@ -12,14 +12,16 @@ import org.usfirst.frc.team237.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OuttakeFirstLevel extends Command 
+public class OuttakeCargoShip extends Command 
 {
+
   private boolean m_step1Done;
   private boolean m_step2Done;
   private boolean m_done = false;
   private double time;
+  private double dTime;
 
-  public OuttakeFirstLevel() 
+  public OuttakeCargoShip() 
   {
     requires(Robot.elevator);
     requires(Robot.ballHandler);
@@ -34,32 +36,40 @@ public class OuttakeFirstLevel extends Command
     m_step1Done = false;
     m_step2Done = false;
     m_done = false;
-    time = 0;
+    time = -1;
+    dTime = 0;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -50000 && !m_step1Done)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -300000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
-    }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -100000 && !m_step2Done)
-    {
-      m_step1Done = true;
-      Robot.elevator.elevatorUp();
-      Robot.ballHandler.ballOuttake();
       time = Timer.getFPGATimestamp();
     }
-    else if(Timer.getFPGATimestamp() <= time + 1)
+    else if(/*Robot.elevator.leftElevator.getSelectedSensorPosition(0) < -390000 && time < 0 && */!m_step2Done)
+    {
+      m_step1Done = true;
+ //     Robot.elevator.elevatorUp();
+      Robot.elevator.setSpeed(-.4);
+      Robot.ballHandler.ballOuttake();
+      dTime = Timer.getFPGATimestamp();
+      //dTime = time;
+      if (dTime > time + 1)
+        m_step2Done = true;
+    }
+    else //else if(dTime < time + 4)
+    //{
+    //  m_step2Done = true;
+    //  dTime = Timer.getFPGATimestamp();
+    //  //Robot.elevator.elevatorDown();
+    // }
+    //else
     {
       Robot.elevator.elevatorOff();
-      m_step2Done = true;
-      //Robot.elevator.elevatorDown();
-     }
-    else
-    {
+      Robot.ballHandler.offIntake();
       m_done = true;
  //     Robot.ballHandler.offIntake();
     }
@@ -76,8 +86,8 @@ public class OuttakeFirstLevel extends Command
   @Override
   protected void end() 
   {
-  //  Robot.ballHandler.offIntake();
     Robot.elevator.elevatorOff();
+    Robot.ballHandler.offIntake();
   }
 
   // Called when another command which requires one or more of the same
@@ -85,7 +95,7 @@ public class OuttakeFirstLevel extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.ballHandler.offIntake();
     Robot.elevator.elevatorOff();
+    Robot.ballHandler.offIntake();
   }
 }
