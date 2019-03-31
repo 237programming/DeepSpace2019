@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Compressor;
 
 public class DiskManipulatorSubsystem extends Subsystem 
 {
-	private static Compressor compressor = new Compressor(51);
+	public static Compressor compressor = new Compressor(51);
 	private static Solenoid diskExtentionSolenoid = new Solenoid(51,RobotMap.diskExtentionSol);
 	private static Solenoid diskEjectSolenoid = new Solenoid(51,RobotMap.diskEjectSol);
 	private static Solenoid ballSolenoid = new Solenoid(51, RobotMap.ballSol);

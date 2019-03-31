@@ -37,7 +37,8 @@ public class OI
 	public static Button switchDrives = new JoystickButton(driveJoystick, 11);
 //	public static Button outtakeThirdLevel = new JoystickButton(driveJoystick, 2);
 //	public static Button diskThirdLevel = new JoystickButton(driveJoystick, 3);
-	public static Button AutoShip = new JoystickButton(driveJoystick, 1);
+//	public static Button AutoShip = new JoystickButton(driveJoystick, 1);
+	public static Button climb = new JoystickButton(driveJoystick, 1);
 
 //	public static Button extend = new JoystickButton(controller, RobotMap.leftBumper);
 //	public static Button diskManipulatorDown = new JoystickButton(controller, RobotMap.rightBumper);
@@ -54,7 +55,7 @@ public class OI
     public static Button AutoLow = new JoystickButton(panel, 2);
 	public static Button AutoMedium = new JoystickButton(panel, 1);
 	public static Button AutoHigh = new JoystickButton(panel, 8);
-//	public static Button AutoShip = new JoystickButton(panel, 9);
+	public static Button AutoShip = new JoystickButton(panel, 9);
 
     public static Button Slap = new JoystickButton(panel, 3);
     public static Button Intake = new JoystickButton(panel, 7);

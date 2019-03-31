@@ -46,6 +46,9 @@ public class RobotMap
 		public static int slapSol = 2; 
 		public static int ballSol = 4; 
 
+	//climber stuff
+		public static int climbSol = 5;
+
 	//Xbox controller stuff
 		public static int A = 1;
 		public static int B = 2;

@@ -8,6 +8,7 @@
 package org.usfirst.frc.team237.robot;
 
 import org.usfirst.frc.team237.robot.subsystems.BallManipulatorSubsystem;
+import org.usfirst.frc.team237.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DiskManipulatorSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team237.robot.subsystems.ElevatorSubsystem; 
@@ -51,6 +52,7 @@ public class Robot extends TimedRobot
 	public static DiskManipulatorSubsystem diskHandler = new DiskManipulatorSubsystem();
 	public static ElevatorSubsystem elevator = new ElevatorSubsystem();
 	public static BallManipulatorSubsystem ballHandler = new BallManipulatorSubsystem();
+	public static ClimberSubsystem climber = new ClimberSubsystem();
 	public static PickUpDiskRoutine m_pickUpDisk = new PickUpDiskRoutine();
 	public static SwitchDrive m_reverseDrive = new SwitchDrive();
 	public static OuttakeFirstLevel m_outtakeFirstLevelCommand = new OuttakeFirstLevel(); 
@@ -269,7 +271,7 @@ public class Robot extends TimedRobot
             if (OI.Slap.get())
                 diskHandler.ballDown();
             else
-                diskHandler.ballUp();
+				diskHandler.ballUp();
             
             //Now the automated stuff...
             if(OI.AutoHigh.get() && !m_outtakeThirdLevel.isRunning())
@@ -303,7 +305,7 @@ public class Robot extends TimedRobot
             if (OI.Slap.get())
                 diskHandler.diskDown();
             else
-                diskHandler.diskUp();    
+				diskHandler.diskUp();   
 
             //Now the automated stuff... 
             if(OI.AutoHigh.get() && !m_diskThirdLevel.isRunning())
@@ -328,6 +330,12 @@ public class Robot extends TimedRobot
 		{
 			elevator.elevatorOff();
 		}	
+
+		//Climb controls
+		if (OI.climb.get())
+			climber.climberOn();
+		else 
+			climber.climberOff();
 	
 		driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
 		driveTrain.post();
