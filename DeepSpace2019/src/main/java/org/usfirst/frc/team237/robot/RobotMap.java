@@ -33,7 +33,7 @@ public class RobotMap
 		public static double deadband = 0.15;
 	
 	//elevator stuff
-		public static int elevatorMaxHeight = -900000;
+		public static int elevatorMaxHeight = -920000;
 		public static int elevatorMotor1 = 11;
 		public static int elevatorMotor2 = 12;
 		

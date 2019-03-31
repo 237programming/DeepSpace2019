@@ -23,7 +23,7 @@ public class ElevatorSubsystem extends Subsystem
 	{
 		leftElevator.configClearPositionOnLimitF(true, 0);
 		leftElevator.set(ControlMode.PercentOutput, 0);
-		rightElevator.set(ControlMode.Follower, RobotMap.elevatorMotor1);
+		rightElevator.set(ControlMode.Follower, RobotMap.elevatorMotor1);		
 	}
 	
 	public void elevatorUp()

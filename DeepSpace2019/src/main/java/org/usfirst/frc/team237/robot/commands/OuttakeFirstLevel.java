@@ -41,7 +41,7 @@ public class OuttakeFirstLevel extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -50000 && !m_step1Done)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -30000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
     }
