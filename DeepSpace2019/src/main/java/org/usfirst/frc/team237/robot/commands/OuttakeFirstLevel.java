@@ -45,7 +45,7 @@ public class OuttakeFirstLevel extends Command
     {
       Robot.elevator.elevatorUp();
     }
-    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -100000 && !m_step2Done)
+    else if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -75000 && !m_step2Done)
     {
       m_step1Done = true;
       Robot.elevator.elevatorUp();
