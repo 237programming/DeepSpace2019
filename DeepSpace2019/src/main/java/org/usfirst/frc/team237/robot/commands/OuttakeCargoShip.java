@@ -44,7 +44,7 @@ public class OuttakeCargoShip extends Command
   @Override
   protected void execute() 
   {
-    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -300000 && !m_step1Done)
+    if(Robot.elevator.leftElevator.getSelectedSensorPosition(0) > -225000 && !m_step1Done)
     {
       Robot.elevator.elevatorUp();
       time = Timer.getFPGATimestamp();
