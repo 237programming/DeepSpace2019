@@ -234,6 +234,7 @@ public class Robot extends TimedRobot
 				m_outtakeThirdLevel.cancel();
 				m_outtakeSecLevelCommand.cancel();
 				m_outtakeFirstLevelCommand.cancel();
+				m_outtakeCargoShip.cancel();
 			}
 						
 			driveTrain.setDrives(-OI.driveJoystick.getY(),-OI.driveJoystick.getX());
